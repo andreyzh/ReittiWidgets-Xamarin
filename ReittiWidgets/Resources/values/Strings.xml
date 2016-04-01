@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Hello">Hello World, Click Me!</string>
+    <string name="ApplicationName">Reitti Widgets</string>
+  
+    <!-- Titles -->
+    <string name="app_name">Reitti Widgets</string>
+    <string name="title_activity_add_line">Add line</string>
+    <string name="title_activity_edit_stop">Edit stop</string>
+  
+    <!-- Controls -->
+    <string name="add_line">Add Line</string>
+    <string name="show_versions">Show all variants</string>
+    <string name="show_widget">Display stop in widget</string>
+    <string name="show_versions_detail">Display all variants of the line e.g. for bus line 132 show also 132N and 132NT</string>
+    <string name="time_delay">Set first departure delay, min</string>
+    <string name="time_delay_detail">Do not show departures leaving in less then number of minutes indicated</string>
+    <string name="stop_code">Stop name</string>
+    <string name="action_add_line">Add Line</string>
+    <string name="action_settings">Settings</string>
+    <string name="content_description_remove_line">Remove line</string>
+  
+    <!-- Context menu -->
+    <string name="stops_context_edit">Edit</string>
+    <string name="stops_context_delete">Delete</string>
+    <!-- Toasts -->
+    <string name="no_connection">No network connection</string>
+    <string name="stop_deleted">Stop deleted</string>
+    <string name="db_updated_toast">Line successfully added</string>
+    <string name="db_exists_toast">Line already exists</string>
+    <string name="enter_stop_name">Please enter stop name</string>
+    <!-- Other -->
+    <string name="no_time"> - </string>
+
+    <!-- Widget -->
+    <string name="appwidget_text">Reitti Widget</string>
+    <string name="add_widget">Add widget</string>
+    <string name="update_widget">Update</string>
+
+    <string-array name="spinner_delay_values">
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
+      <item>10</item>
+      <item>11</item>
+      <item>12</item>
+      <item>13</item>
+      <item>14</item>
+      <item>15</item>
+    </string-array>
+</resources>
