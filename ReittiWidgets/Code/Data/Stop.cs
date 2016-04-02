@@ -9,49 +9,19 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using SQLite;
 
 namespace ReittiWidgets.Code.Data
 {
     class Stop
     {
-        private bool displayInWidget = false;
-        private string id;
         private List<Line> lineList = new List<Line>();
 
-        public bool DisplayInWidget
-        {
-            get
-            {
-                return displayInWidget;
-            }
-
-            set
-            {
-                displayInWidget = value;
-            }
-        }
-        public string StopCode
-        {
-            get
-            {
-                return StopCode;
-            }
-            private set
-            {
-                StopCode = value;
-            }
-        }
-        public string StopName
-        {
-            get
-            {
-                return StopName;
-            }
-            private set
-            {
-                StopName = value;
-            }
-        }
+        public bool DisplayInWidget { get; set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public string StopCode { get; set; }
+        public string StopName { get; set; }
         public List<Line> Lines
         {
             get
@@ -67,11 +37,6 @@ namespace ReittiWidgets.Code.Data
         public Line GetLine(int index)
         {
             return lineList[index];
-        }
-        public void SetStop(string stopCode, string stopName)
-        {
-            this.StopCode = stopCode;
-            this.StopName = stopName;
         }
     }
 }

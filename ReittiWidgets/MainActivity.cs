@@ -19,6 +19,7 @@ namespace ReittiWidgets
         // Members
         private List<Stop> stops;
         private bool isConnected;
+        private Database db = new Database();
 
 
         protected override void OnCreate(Bundle bundle)
@@ -28,18 +29,34 @@ namespace ReittiWidgets
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            //Button button = FindViewById<Button>(Resource.Id.MyButton);
+            stopListView = FindViewById<ListView>(Resource.Id.stopsListView);
+            RegisterForContextMenu(stopListView);
+            stopListView.ItemClick += StopListView_ItemClick;
 
-            //button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+            // Get stops from DB
+            //List<Type> tables = new List<Type>() { Stop, Line };
+            //db.CreateAllTables(tables);
+            
         }
+
+        
 
         public override bool OnPrepareOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.MainMenu, menu);
             return base.OnPrepareOptionsMenu(menu);
         }
+
+        //TODO: deal with this magic
+        private void StopListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
+// Get our button from the layout resource,
+// and attach an event to it
+//Button button = FindViewById<Button>(Resource.Id.MyButton);
+
+//button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };

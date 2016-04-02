@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using SQLite;
 
 namespace ReittiWidgets.Code.Data
 {
@@ -31,6 +32,7 @@ namespace ReittiWidgets.Code.Data
         {
             get; set;
         }
+        public int Id { get; set; }
         public int Delay
         {
             get
@@ -47,41 +49,55 @@ namespace ReittiWidgets.Code.Data
         {
             get
             {
-                return getNextDeparure(); //TODO
+                DateTime? result = getNextDeparture();
+                return result.HasValue ? result.Value.ToString("HH : mm") : " - ";
             }
         }
         public string FollowingDeparture
         {
             get
             {
-                return getFollowingDeparture(); //TODO
+                DateTime? result = getFollowingDeparture();
+                return result.HasValue ? result.Value.ToString("HH : mm") : " - ";
             }
         }
+        public string LineNumber { get; set; }
+        public string LineCode { get; set; }
+        [Indexed]
+        public string StopCode { get; set; }
 
         public void SetDepartures(List<DateTime> departures)
         {
             this.departures = departures;
         }
-        private string getNextDeparure()
+        private DateTime? getNextDeparture()
         {
-            string nextDeparture = null;
-
             DateTime adjusted = DateTime.Now.AddMinutes(delay);
 
             //TODO: Refactor?
             foreach(DateTime departureTime in departures)
             {
-                if(adjusted >= departureTime)
+                if(adjusted <= departureTime)
                 {
-                    nextDeparture = departureTime.ToString("HH:mm");
-                    break;
+                    return departureTime;
                 }
             }
 
-            return nextDeparture;
+            return null;
         }
-        private string getFollowingDeparture()
+        private DateTime? getFollowingDeparture()
         {
+            if(getNextDeparture().HasValue)
+            { 
+                DateTime nextDeparture = getNextDeparture().Value;
+
+                foreach(DateTime departureTime in departures)
+                {
+                    if (departureTime > nextDeparture)
+                        return departureTime;
+                }
+            }
+
             return null;
         }
     }
