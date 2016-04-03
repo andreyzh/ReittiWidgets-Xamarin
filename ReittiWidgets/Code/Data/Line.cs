@@ -18,6 +18,7 @@ namespace ReittiWidgets.Code.Data
         private int delay = 5;
         private List<DateTime> departures;
 
+        [Ignore]
         public bool HasDepartures
         {
             get

@@ -22,6 +22,7 @@ namespace ReittiWidgets.Code.Data
         public int Id { get; set; }
         public string StopCode { get; set; }
         public string StopName { get; set; }
+        [Ignore]
         public List<Line> Lines
         {
             get
