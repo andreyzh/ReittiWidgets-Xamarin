@@ -20,8 +20,8 @@ namespace ReittiWidgets.Code.Data
         public bool DisplayInWidget { get; set; }
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public string StopCode { get; set; }
-        public string StopName { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
         [Ignore]
         public List<Line> Lines
         {

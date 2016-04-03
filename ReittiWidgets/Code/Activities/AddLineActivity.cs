@@ -13,10 +13,11 @@ using ReittiWidgets.Code.Data;
 using ReittiWidgets.Code.Reittiopas;
 using System.Xml;
 using System.IO;
+using ReittiWidgets.Code.Adapters;
 
 namespace ReittiWidgets.Code.Activities
 {
-    [Activity(Label = "Add Line", Icon = "@drawable/ic_main")]
+    [Activity(Label = "Add Line", Icon = "@drawable/ic_main", Theme = "@android:style/Theme.Material.Light.DarkActionBar")]
     class AddLineActivity : Activity
     {
         // UI Elements
@@ -39,10 +40,21 @@ namespace ReittiWidgets.Code.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             SetContentView(Resource.Layout.AddLine);
 
+            // Load all stops from the XML asset
             getStopInformation();
+
+            // Set default value for delay spinner
+            delaySpinner = (Spinner)FindViewById(Resource.Id.spinner2);
+            delaySpinner.SetSelection(2);
+
+            showVersionsBox = (CheckBox)FindViewById(Resource.Id.checkBoxShowVersions);
+
+            // Enable auto-complete
+            stopInput = (AutoCompleteTextView)FindViewById(Resource.Id.inputStopName);
+            AutoCompleteAdapter adapter = new AutoCompleteAdapter(this, Resource.Layout.autocomplete_stop_list, stopMap);
+            stopInput.Adapter = adapter;
         }
 
         // Reads stop names and codes from XML.

@@ -6,6 +6,7 @@ using Android.App;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+//[assembly: Application(Theme = "@android:style/Theme.Material.Light.DarkActionBar ")]
 [assembly: AssemblyTitle("ReittiWidgets")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
@@ -15,6 +16,7 @@ using Android.App;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
+
 
 // Version information for an assembly consists of the following four values:
 //

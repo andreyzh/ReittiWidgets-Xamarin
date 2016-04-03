@@ -107,11 +107,11 @@ namespace ReittiWidgets
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f08000d
-			public const int action_add_line = 2131230733;
-			
 			// aapt resource value: 0x7f08000e
-			public const int action_refresh = 2131230734;
+			public const int action_add_line = 2131230734;
+			
+			// aapt resource value: 0x7f08000f
+			public const int action_refresh = 2131230735;
 			
 			// aapt resource value: 0x7f08000b
 			public const int buttonAddline = 2131230731;
@@ -146,8 +146,11 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f080005
 			public const int spinner2 = 2131230725;
 			
+			// aapt resource value: 0x7f08000d
+			public const int stopsListView = 2131230733;
+			
 			// aapt resource value: 0x7f08000c
-			public const int stopsListView = 2131230732;
+			public const int textView = 2131230732;
 			
 			// aapt resource value: 0x7f080007
 			public const int versionLayout = 2131230727;
@@ -169,7 +172,10 @@ namespace ReittiWidgets
 			public const int AddLine = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Main = 2130903041;
+			public const int autocomplete_stop_list = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int Main = 2130903042;
 			
 			static Layout()
 			{

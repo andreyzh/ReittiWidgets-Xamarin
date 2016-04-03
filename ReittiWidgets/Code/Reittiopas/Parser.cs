@@ -35,9 +35,9 @@ namespace ReittiWidgets.Code.Reittiopas
                 foreach(XmlAttribute attribute in attributes)
                 {
                     if(attribute.Name == "StationId")
-                        stop.StopCode = attribute.Value;
+                        stop.Code = attribute.Value;
                     if (attribute.Name == "Name")
-                        stop.StopName = attribute.Value;
+                        stop.Name = attribute.Value;
                 }
                 stops.Add(stop);
             }
