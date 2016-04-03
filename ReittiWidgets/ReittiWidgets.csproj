@@ -49,9 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Activities\AddLineActivity.cs" />
     <Compile Include="Code\Database\Database.cs" />
     <Compile Include="Code\Data\Line.cs" />
     <Compile Include="Code\Data\Stop.cs" />
+    <Compile Include="Code\Reittiopas\Parser.cs" />
     <Compile Include="Code\Utils.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -65,6 +67,9 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\menu\MainMenu.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\AddLine.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -91,6 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\stops.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\dimens.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

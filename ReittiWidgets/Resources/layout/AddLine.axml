@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+    <AutoCompleteTextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputStopName"
+        android:enabled="true"
+        android:editable="true"
+        android:clickable="true"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:completionThreshold="3"
+        android:hint="@string/stop_code"
+        android:visibility="visible" />
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/inputStopName"
+        android:paddingTop="5dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:id="@+id/delayLayout"
+        android:layout_below="@+id/spinner">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/delayLayoutInner"
+            android:paddingTop="5dp">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/time_delay"
+                android:id="@+id/labelDelay"
+                android:paddingBottom="5dp"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+            <Spinner
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner2"
+                android:entries="@array/spinner_delay_values"
+                android:layout_weight="3" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/time_delay_detail"
+            android:id="@+id/labelDelayDetail"
+            android:paddingTop="2dp"
+            android:layout_marginRight="5dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/delayLayout"
+        android:id="@+id/versionLayout"
+        android:paddingTop="5dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/show_versions"
+                android:id="@+id/labelVersion"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+            <CheckBox
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBoxShowVersions"
+                android:layout_weight="8"
+                android:singleLine="false" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/show_versions_detail"
+            android:id="@+id/labelVersionDetail"
+            android:layout_marginRight="5dp"
+            android:paddingTop="2dp" />
+    </LinearLayout>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_line"
+        android:id="@+id/buttonAddline"
+        android:layout_below="@+id/versionLayout" />
+</RelativeLayout>
