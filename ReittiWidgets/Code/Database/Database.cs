@@ -15,15 +15,20 @@ namespace ReittiWidgets.Code.Data
 {
     class Database
     {
-        SQLiteConnection db = new SQLiteConnection("ReittiWidgets");
+        private SQLiteConnection db;
 
-        public void CreateAllTables(List<object> tables)
+        public Database()
         {
-            foreach(object table in tables)
-            {
-                Type type = table.GetType();
-                db.CreateTable<Type>();
-            }
+            string personalFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            string pathToDatabase = System.IO.Path.Combine(personalFolder, "reittopasWidgets.db");
+            db = new SQLiteConnection(pathToDatabase);
+        }
+
+        //TODO: Refactor
+        public void CreateAllTables()
+        {
+            int i = db.CreateTable<Stop>();
+            int j = db.CreateTable<Line>();
         }
     }
 }
