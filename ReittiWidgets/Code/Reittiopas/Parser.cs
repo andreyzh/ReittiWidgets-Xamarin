@@ -18,11 +18,29 @@ namespace ReittiWidgets.Code.Reittiopas
     {
         private XmlDocument doc = new XmlDocument();
 
-        public List<Stop> ParseStops(XmlReader inputXML)
+        //TODO: Refactor?!
+        public List<Stop> ParseStops(string input)
         {
             List<Stop> stops = new List<Stop>();
 
-            //this.doc = inputXML;
+            doc.LoadXml(input);
+            XmlElement root = doc.DocumentElement;
+            XmlNodeList nodes = root.SelectNodes("Station");
+
+            foreach(XmlNode node in nodes)
+            {
+                Stop stop = new Stop();
+                XmlAttributeCollection attributes = node.Attributes;
+
+                foreach(XmlAttribute attribute in attributes)
+                {
+                    if(attribute.Name == "StationId")
+                        stop.StopCode = attribute.Value;
+                    if (attribute.Name == "Name")
+                        stop.StopName = attribute.Value;
+                }
+                stops.Add(stop);
+            }
 
             return stops; 
         }

@@ -12,6 +12,7 @@ using Android.Widget;
 using ReittiWidgets.Code.Data;
 using ReittiWidgets.Code.Reittiopas;
 using System.Xml;
+using System.IO;
 
 namespace ReittiWidgets.Code.Activities
 {
@@ -47,10 +48,11 @@ namespace ReittiWidgets.Code.Activities
         // Reads stop names and codes from XML.
         private List<Stop> getStopInformation()
         {
-            XmlReader stopsXml = Resources.GetXml(Resource.Xml.stops);
-            string random = Resources.GetString(Resource.Xml.stops);
+            StreamReader streamReader = new StreamReader(Assets.Open("stops.xml"));
+            string content = streamReader.ReadToEnd();
+
             Parser parser = new Parser();
-            return parser.ParseStops(stopsXml);
+            return parser.ParseStops(content);
         }
     }
 }
