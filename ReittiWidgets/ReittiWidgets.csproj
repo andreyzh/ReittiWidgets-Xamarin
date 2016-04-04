@@ -54,6 +54,7 @@
     <Compile Include="Code\Database\Database.cs" />
     <Compile Include="Code\Data\Line.cs" />
     <Compile Include="Code\Data\Stop.cs" />
+    <Compile Include="Code\JavaObjectExtensions.cs" />
     <Compile Include="Code\Reittiopas\Parser.cs" />
     <Compile Include="Code\Utils.cs" />
     <Compile Include="MainActivity.cs" />

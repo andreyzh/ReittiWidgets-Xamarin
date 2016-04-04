@@ -13,10 +13,12 @@ using SQLite;
 
 namespace ReittiWidgets.Code.Data
 {
-    class Stop
+    class Stop : Java.Lang.Object
     {
+        public readonly object Instance;
         private List<Line> lineList = new List<Line>();
 
+        #region Properties
         public bool DisplayInWidget { get; set; }
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
@@ -29,7 +31,16 @@ namespace ReittiWidgets.Code.Data
             {
                 return lineList;
             }
-        }        
+        }
+        #endregion
+
+        #region Constructors
+        public Stop() { }
+        public Stop(object instance)
+        {
+            Instance = instance;
+        }
+        #endregion
 
         public void AddLine(Line line)
         {
