@@ -100,7 +100,9 @@
     <AndroidResource Include="Resources\drawable\ic_main.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\stops.xml" />
+    <AndroidAsset Include="Assets\stops.xml">
+      <SubType>Designer</SubType>
+    </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\dimens.xml" />

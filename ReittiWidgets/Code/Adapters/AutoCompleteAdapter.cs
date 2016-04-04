@@ -50,6 +50,7 @@ namespace ReittiWidgets.Code.Adapters
             lInflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
             matchedStops = stopList;
             allStops = matchedStops;
+            filter = new StopsFilter(this);
         }
 
         public override Java.Lang.Object GetItem(int position)
@@ -92,11 +93,10 @@ namespace ReittiWidgets.Code.Adapters
 
                 var filterResults = new FilterResults();
 
-                if (!string.IsNullOrEmpty(constraint.ToString()))
+                if (constraint == null)
                 {
                     var originalStops = new List<Stop>(parent.matchedStops);
                     filterResults.Count = originalStops.Count;
-                    //filterResults.Values = originalStops;
                     filterResults.Values = FromArray(originalStops.Select(r => r.ToJavaObject()).ToArray());
                 }
                 else
@@ -112,7 +112,7 @@ namespace ReittiWidgets.Code.Adapters
                     }
 
                     filterResults.Count = newStops.Count;
-                    //filterResults.Values = newStops;
+                    filterResults.Values = FromArray(newStops.Select(r => r.ToJavaObject()).ToArray());
                 }
                 return filterResults;
             }
@@ -129,3 +129,35 @@ namespace ReittiWidgets.Code.Adapters
         }
     }
 }
+
+/*
+private ContactsTableItem[] _contactList;
+private ContactsTableItem[] _originalContactList;
+ 
+protected override FilterResults PerformFiltering(ICharSequence constraint)
+{
+   var returnObj = new FilterResults();
+   var results = new List<ContactsTableItem>();
+
+   if (_adapter._originalContactList == null)
+      _adapter._originalContactList = _adapter._contactList;
+ 
+   if (constraint == null) 
+     return returnObj;
+ 
+    if (_adapter._originalContactList != null && _adapter._originalContactList.Any())
+    {
+      // Compare constraint to all names lowercased. 
+      // It they are contained they are added to results.
+      results.AddRange( _adapter._originalContactList.Where(contact => contact.FullName.ToLower().Contains(constraint.ToString())));
+     }
+ 
+     returnObj.Values = FromArray(results.Select(r => r.ToJavaObject()).ToArray());
+ 
+     returnObj.Count = results.Count;
+ 
+     constraint.Dispose();
+ 
+     return returnObj;
+}
+*/

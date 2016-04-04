@@ -25,7 +25,7 @@ namespace ReittiWidgets.Code.Activities
         Spinner delaySpinner;
         Button buttonAddLine;
         CheckBox showVersionsBox;
-        AutoCompleteTextView stopInput;
+        AutoCompleteTextView inputStopName;
         ProgressDialog progressDialog;
 
         // Members
@@ -34,7 +34,7 @@ namespace ReittiWidgets.Code.Activities
         private long currentStopId;
         private String currentStopName;
         protected Dictionary<String, String> lineMap;
-        protected List<Stop> stopMap;
+        protected List<Stop> allStops;
         protected String previousUrl = null;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -43,7 +43,7 @@ namespace ReittiWidgets.Code.Activities
             SetContentView(Resource.Layout.AddLine);
 
             // Load all stops from the XML asset
-            getStopInformation();
+            allStops = getStopInformation();
 
             // Set default value for delay spinner
             delaySpinner = (Spinner)FindViewById(Resource.Id.spinner2);
@@ -51,10 +51,20 @@ namespace ReittiWidgets.Code.Activities
 
             showVersionsBox = (CheckBox)FindViewById(Resource.Id.checkBoxShowVersions);
 
-            // Enable auto-complete
-            stopInput = (AutoCompleteTextView)FindViewById(Resource.Id.inputStopName);
-            AutoCompleteAdapter adapter = new AutoCompleteAdapter(this, Resource.Layout.autocomplete_stop_list, stopMap);
-            stopInput.Adapter = adapter;
+            //TEST:
+            var autoCompleteOptions = new String[] { "Hello", "Hey", "Heja", "Hi", "Hola", "Bonjour", "Gday", "Goodbye", "Sayonara", "Farewell", "Adios" };
+            ArrayAdapter autoCompleteAdapter = new ArrayAdapter(this, Resource.Layout.autocomplete_stop_list, autoCompleteOptions);
+            var autocompleteTextView = FindViewById<AutoCompleteTextView>(Resource.Id.inputStopName);
+            autocompleteTextView.Adapter = autoCompleteAdapter;
+
+
+            // Set adapter for autocomplete
+            inputStopName = (AutoCompleteTextView)FindViewById(Resource.Id.inputStopName);
+            AutoCompleteAdapter adapter = new AutoCompleteAdapter(this, Resource.Layout.autocomplete_stop_list, allStops);
+            inputStopName.Adapter = adapter;
+
+            // Set listener for autocomplete
+            //stopInputTextBox.ItemClick += stopInputTextChanged;
         }
 
         // Reads stop names and codes from XML.
@@ -65,6 +75,11 @@ namespace ReittiWidgets.Code.Activities
 
             Parser parser = new Parser();
             return parser.ParseStops(content);
+        }
+
+        private void stopInputTextChanged(object sender, AdapterView.ItemClickEventArgs e)
+        {
+
         }
     }
 }
