@@ -1,20 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Object = Java.Lang.Object;
-
-using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
 using ReittiWidgets.Code.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Object = Java.Lang.Object;
 
 namespace ReittiWidgets.Code.Adapters
 {
+    /// <summary>
+    /// Provides autocomplete features for AutoCompleteTextView based on
+    /// Stop object collected from Asset XML file
+    /// </summary>
     class AutoCompleteAdapter : BaseAdapter<Stop>, IFilterable
     {
         private Filter filter;
@@ -48,12 +47,11 @@ namespace ReittiWidgets.Code.Adapters
         public AutoCompleteAdapter(Context context, int textViewResourceId, List<Stop> stopList)
         {
             lInflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
-            matchedStops = stopList;
-            allStops = matchedStops;
+            matchedStops = allStops = stopList;
             filter = new StopsFilter(this);
         }
 
-        public override Java.Lang.Object GetItem(int position)
+        public override Object GetItem(int position)
         {
             Stop value = matchedStops[position];
             return value.Name;
@@ -86,33 +84,26 @@ namespace ReittiWidgets.Code.Adapters
 
             protected override FilterResults PerformFiltering(ICharSequence constraint)
             {
-                //Example: https://github.com/skyflyer/XamarinSimpleAdapterListFilter/blob/master/MainActivity.cs
-                //Another one: http://xenrcode.net/2015/09/09/xamarin-adding-filtering-to-custom-adapter/
-                //And another one: https://gist.github.com/Cheesebaron/9838325
-                // Finally https://gist.github.com/Cheesebaron/9876783
-
-                var filterResults = new FilterResults();
+                FilterResults filterResults = new FilterResults();
+                List<Stop> filteredStops = new List<Stop>();
 
                 if (constraint == null)
                 {
-                    var originalStops = new List<Stop>(parent.matchedStops);
-                    filterResults.Count = originalStops.Count;
-                    filterResults.Values = FromArray(originalStops.Select(r => r.ToJavaObject()).ToArray());
+                    return filterResults;
                 }
                 else
                 {
-                    List<Stop> newStops = new List<Stop>();
-
-                    // Note the clone - original list gets stripped
+                    // Go though each stop and check if start of the name matches with inputed char sequence
+                    // If there are matches, add to match list
                     foreach (Stop stop in parent.allStops)
                     {
                         string lowercase = stop.Name.ToLower();
                         if (lowercase.StartsWith(constraint.ToString().ToLower()))
-                            newStops.Add(stop);
+                            filteredStops.Add(stop);
                     }
 
-                    filterResults.Count = newStops.Count;
-                    filterResults.Values = FromArray(newStops.Select(r => r.ToJavaObject()).ToArray());
+                    filterResults.Count = filteredStops.Count;
+                    filterResults.Values = FromArray(filteredStops.Select(r => r.ToJavaObject()).ToArray());
                 }
                 return filterResults;
             }
@@ -129,6 +120,11 @@ namespace ReittiWidgets.Code.Adapters
         }
     }
 }
+
+//Example: https://github.com/skyflyer/XamarinSimpleAdapterListFilter/blob/master/MainActivity.cs
+//Another one: http://xenrcode.net/2015/09/09/xamarin-adding-filtering-to-custom-adapter/
+//And another one: https://gist.github.com/Cheesebaron/9838325
+//Finally https://gist.github.com/Cheesebaron/9876783
 
 /*
 private ContactsTableItem[] _contactList;
