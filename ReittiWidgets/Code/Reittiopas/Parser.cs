@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using System.Xml;
 using ReittiWidgets.Code.Data;
+using System.Text.RegularExpressions;
 
 namespace ReittiWidgets.Code.Reittiopas
 {
@@ -43,6 +44,33 @@ namespace ReittiWidgets.Code.Reittiopas
             }
 
             return stops; 
+        }
+
+        public List<Line> ParseLinesInStop(string input)
+        {
+            List<Line> lineList = new List<Line>();
+
+            doc.LoadXml(input);
+            XmlElement root = doc.DocumentElement;
+            XmlNodeList nodes = root.SelectNodes("/response/node/lines/node");
+
+            foreach(XmlNode node in nodes)
+            {
+                Line line = new Line();
+                string rawOutput = node.InnerText;
+
+                string pattern = @"(\d)(\d\d\d\D*)\d:(\w*)";
+                Match match = Regex.Match(rawOutput, pattern);
+
+                if(match.Success)
+                {
+                    string one = match.Groups[1].Value;
+                    string two = match.Groups[2].Value;
+                    string three = match.Groups[3].Value;
+                }
+            }
+
+            return lineList;
         }
     }
 }

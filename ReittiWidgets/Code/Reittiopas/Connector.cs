@@ -12,6 +12,7 @@ using Android.Widget;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace ReittiWidgets.Code.Reittiopas
 {
@@ -22,20 +23,21 @@ namespace ReittiWidgets.Code.Reittiopas
     {
         public string Url { get; set; }
 
-        public Task<WebResponse> GetStream()
+        public async Task<string> GetXmlStringAsync()
         {
+            Task<string> response;
+
             if (Url == null)
                 return null;
+            
+            using (HttpClient client = new HttpClient())
+            {
+                response = client.GetStringAsync(Url);
+            }
 
-            WebRequest wrGETURL;
-            wrGETURL = WebRequest.Create(Url);
-            //EXCEPTION HAPPENS HERE!
-            var response = wrGETURL.GetResponseAsync();
+            string responseContent = await response;
 
-            //Stream objStream;
-            //objStream = wrGETURL.GetResponse().GetResponseStream();
-
-            return response;
+            return responseContent;
         }
     }
 }

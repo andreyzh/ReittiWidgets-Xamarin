@@ -16,6 +16,7 @@ using System.IO;
 using ReittiWidgets.Code.Adapters;
 using Android.Views.InputMethods;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace ReittiWidgets.Code.Activities
 {
@@ -39,6 +40,7 @@ namespace ReittiWidgets.Code.Activities
         protected List<Stop> allStops;
         //protected String previousUrl = null;
         protected ActivityActions activityActions;
+        private string temp;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -88,15 +90,21 @@ namespace ReittiWidgets.Code.Activities
             {
                 if (Utils.CheckConnectivity(this))
                 {
-                    Task<Dictionary<String, String>> task = downloadLines(stopCode);
-
                     // Show progress dialog
                     if (progressDialog == null)
                         progressDialog = new ProgressDialog(this);
                     progressDialog.SetMessage("Loading, please wait");
                     progressDialog.Show();
 
-                    lineMap = await task;
+                    Connector connector = new Connector();
+                    connector.Url = RequestBuilder.getStopRequest(stopCode);
+                    string resultXml = await connector.GetXmlStringAsync();
+
+                    progressDialog.Hide();
+
+                    Parser parser = new Parser();
+                    List<Line> lines;
+                    lines = parser.ParseLinesInStop(resultXml);
                 }
                 else
                     Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Short).Show();
@@ -117,24 +125,26 @@ namespace ReittiWidgets.Code.Activities
             imm.HideSoftInputFromWindow(inputStopName.WindowToken, 0);
 
             // Search for lines
-            Task task = new Task(searchLines);
-            task.Start();
+            searchLines();
         }
 
-        private static async void getLineInformation()
+        private async void downloadLines(string stopCode)
         {
-
-        }
-
-        private static async Task<Dictionary<String, String>> downloadLines(string stopCode)
-        {
-            Dictionary<String, String> lineMap = new Dictionary<string, string>();
-
             Connector connector = new Connector();
             connector.Url = RequestBuilder.getStopRequest(stopCode);
-            var xml = await connector.GetStream();
+            temp = await connector.GetXmlStringAsync();
 
-            return lineMap;
+            progressDialog.Hide();
+
+            /*Task<string> task = connector.GetStream();
+            Task task = new Task(() => 
+            {
+                result = connector.GetStream().Result;
+            });
+            task.Start();
+            task.Wait();*/
+
+            //return lineMap;
         }
     }
 

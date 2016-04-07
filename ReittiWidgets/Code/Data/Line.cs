@@ -62,8 +62,8 @@ namespace ReittiWidgets.Code.Data
                 return result.HasValue ? result.Value.ToString("HH : mm") : " - ";
             }
         }
-        public string LineNumber { get; set; }
-        public string LineCode { get; set; }
+        public string Number { get; set; }
+        public string Code { get; set; }
         [Indexed]
         public string StopCode { get; set; }
 
