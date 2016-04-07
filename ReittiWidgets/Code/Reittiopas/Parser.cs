@@ -48,7 +48,7 @@ namespace ReittiWidgets.Code.Reittiopas
 
         public List<Line> ParseLinesInStop(string input)
         {
-            List<Line> lineList = new List<Line>();
+            List<Line> lines = new List<Line>();
 
             doc.LoadXml(input);
             XmlElement root = doc.DocumentElement;
@@ -64,13 +64,18 @@ namespace ReittiWidgets.Code.Reittiopas
 
                 if(match.Success)
                 {
-                    string one = match.Groups[1].Value;
-                    string two = match.Groups[2].Value;
-                    string three = match.Groups[3].Value;
+                    string type = match.Groups[1].Value;
+                    string number = match.Groups[2].Value;
+                    string destination = match.Groups[3].Value;
+
+                    line.Number = number.Replace("0", "").Trim() + " " + destination;
+                    line.Code = type.Trim() + number.Trim();
+
+                    lines.Add(line);
                 }
             }
 
-            return lineList;
+            return lines;
         }
     }
 }

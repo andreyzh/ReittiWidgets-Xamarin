@@ -36,18 +36,15 @@ namespace ReittiWidgets.Code.Activities
         //private bool isConnected;
         private long currentStopId;
         private String currentStopName;
-        protected Dictionary<String, String> lineMap;
+        protected List<Line> linesInStop;
         protected List<Stop> allStops;
         //protected String previousUrl = null;
-        protected ActivityActions activityActions;
         private string temp;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.AddLine);
-
-            activityActions = new ActivityActions(this);
 
             // Load all stops from the XML asset
             allStops = getStopInformation();
@@ -78,7 +75,7 @@ namespace ReittiWidgets.Code.Activities
         }
 
         // Initiates search for lines in a selected stop TODO: REFACTOR!
-        private async void searchLines()
+        private async void getLines()
         {
             string stopCode = currentStopId.ToString();
 
@@ -96,15 +93,30 @@ namespace ReittiWidgets.Code.Activities
                     progressDialog.SetMessage("Loading, please wait");
                     progressDialog.Show();
 
-                    Connector connector = new Connector();
-                    connector.Url = RequestBuilder.getStopRequest(stopCode);
-                    string resultXml = await connector.GetXmlStringAsync();
+                    try
+                    { 
+                        Connector connector = new Connector();
+                        connector.Url = RequestBuilder.getStopRequest(stopCode);
+                        string resultXml = await connector.GetXmlStringAsync();
 
-                    progressDialog.Hide();
+                        progressDialog.Hide();
+                        progressDialog.Dismiss();
 
-                    Parser parser = new Parser();
-                    List<Line> lines;
-                    lines = parser.ParseLinesInStop(resultXml);
+                        // Parse lines
+                        Parser parser = new Parser();
+                        this.linesInStop = parser.ParseLinesInStop(resultXml);
+
+                        spinner = (Spinner)FindViewById(Resource.Id.spinner);
+                        List<String> lines = linesInStop.Select(line => line.Number).ToList(); // LAMBDA!
+                        ArrayAdapter<string> spinnerAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, lines);
+                        spinner.Adapter = spinnerAdapter;
+                    }
+                    catch(Exception ex)
+                    {
+                        progressDialog.Hide();
+                        progressDialog.Dismiss();
+                        Toast.MakeText(this, ex.Message, ToastLength.Short).Show();
+                    }
                 }
                 else
                     Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Short).Show();
@@ -125,7 +137,7 @@ namespace ReittiWidgets.Code.Activities
             imm.HideSoftInputFromWindow(inputStopName.WindowToken, 0);
 
             // Search for lines
-            searchLines();
+            getLines();
         }
 
         private async void downloadLines(string stopCode)
@@ -146,17 +158,5 @@ namespace ReittiWidgets.Code.Activities
 
             //return lineMap;
         }
-    }
-
-    class ActivityActions
-    {
-        Activity activity;
-
-        public ActivityActions(Activity activity)
-        {
-            this.activity = activity;
-        }
-
-
     }
 }
