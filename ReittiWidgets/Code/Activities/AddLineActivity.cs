@@ -17,20 +17,20 @@ namespace ReittiWidgets.Code.Activities
     class AddLineActivity : Activity
     {
         // UI Elements
-        Spinner spinner;
-        Spinner delaySpinner;
         Button buttonAddLine;
         CheckBox showVersionsBox;
+        Spinner delaySpinner;
+        Spinner spinner;
         AutoCompleteTextView inputStopName;
         ProgressDialog progressDialog;
 
         // Members
+        protected List<Stop> allStops;
+        protected List<Line> linesInStop;
         private bool dbUpdated = false;
         private long currentStopId;
-        private String currentStopName;
-        protected List<Line> linesInStop;
-        protected List<Stop> allStops;
-
+        private string currentStopName;
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -57,34 +57,14 @@ namespace ReittiWidgets.Code.Activities
             buttonAddLine.Click += addLine;
         }
 
-        // Handler for add line button. Adds line and stop to DB
-        private void addLine(object sender, EventArgs e)
+        // Reads stop names and codes from XML.
+        private List<Stop> getStopInformation()
         {
-            if(spinner != null)
-            {
-                Database database = new Database();
-                Stop stop = allStops.Find(s => s.Code == currentStopId.ToString());
+            StreamReader streamReader = new StreamReader(Assets.Open("stops.xml"));
+            string content = streamReader.ReadToEnd();
 
-                string lineName = (string)spinner.SelectedItem;
-                Line line = linesInStop.Find(l => l.Number == lineName);
-                line.ShowVersions = showVersionsBox.Checked;
-                line.Delay = Convert.ToInt32(delaySpinner.SelectedItem.ToString());
-                line.StopCode = stop.Code;
-
-                bool stopInserted = database.InsertStop(stop);
-                bool lineInserted = database.InsertLine(line);
-
-                if(stopInserted || lineInserted)
-                {
-                    dbUpdated = true;
-                    Toast.MakeText(this, "Line succesfully added", ToastLength.Short).Show();
-
-                    Intent.PutExtra("dbUpdated", dbUpdated);
-                    SetResult(Result.Ok, Intent);
-                }
-                if(!stopInserted && !lineInserted)
-                    Toast.MakeText(this, "Line already exists", ToastLength.Short).Show();
-            }
+            Parser parser = new Parser();
+            return parser.ParseStops(content);
         }
 
         // Get lines for the selected stop and show on spinner
@@ -138,14 +118,34 @@ namespace ReittiWidgets.Code.Activities
             }
         }
 
-        // Reads stop names and codes from XML.
-        private List<Stop> getStopInformation()
+        // Handler for add line button. Adds line and stop to DB
+        private void addLine(object sender, EventArgs e)
         {
-            StreamReader streamReader = new StreamReader(Assets.Open("stops.xml"));
-            string content = streamReader.ReadToEnd();
+            if (spinner != null)
+            {
+                Database database = new Database();
+                Stop stop = allStops.Find(s => s.Code == currentStopId.ToString());
 
-            Parser parser = new Parser();
-            return parser.ParseStops(content);
+                string lineName = (string)spinner.SelectedItem;
+                Line line = linesInStop.Find(l => l.Number == lineName);
+                line.ShowVersions = showVersionsBox.Checked;
+                line.Delay = Convert.ToInt32(delaySpinner.SelectedItem.ToString());
+                line.StopCode = stop.Code;
+
+                bool stopInserted = database.InsertStop(stop);
+                bool lineInserted = database.InsertLine(line);
+
+                if (stopInserted || lineInserted)
+                {
+                    dbUpdated = true;
+                    Toast.MakeText(this, "Line succesfully added", ToastLength.Short).Show();
+
+                    Intent.PutExtra("dbUpdated", dbUpdated);
+                    SetResult(Result.Ok, Intent);
+                }
+                if (!stopInserted && !lineInserted)
+                    Toast.MakeText(this, "Line already exists", ToastLength.Short).Show();
+            }
         }
 
         // Click listener for autocomplete suggestions - extracts selected stop data
