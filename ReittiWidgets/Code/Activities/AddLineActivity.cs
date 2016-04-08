@@ -33,12 +33,10 @@ namespace ReittiWidgets.Code.Activities
 
         // Members
         private bool dbUpdated = false;
-        //private bool isConnected;
         private long currentStopId;
         private String currentStopName;
         protected List<Line> linesInStop;
         protected List<Stop> allStops;
-        //protected String previousUrl = null;
         private string temp;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -62,19 +60,40 @@ namespace ReittiWidgets.Code.Activities
 
             // Set listener for autocomplete
             inputStopName.ItemClick += stopInputItemClick;
+
+            buttonAddLine = (Button)FindViewById(Resource.Id.buttonAddline);
+            buttonAddLine.Click += addLine;
         }
 
-        // Reads stop names and codes from XML.
-        private List<Stop> getStopInformation()
+        private void addLine(object sender, EventArgs e)
         {
-            StreamReader streamReader = new StreamReader(Assets.Open("stops.xml"));
-            string content = streamReader.ReadToEnd();
+            if(spinner != null)
+            {
+                Database database = new Database();
+                Stop stop = allStops.Find(s => s.Code == currentStopId.ToString());
 
-            Parser parser = new Parser();
-            return parser.ParseStops(content);
+                string lineName = (string)spinner.SelectedItem;
+                Line line = linesInStop.Find(l => l.Number == lineName);
+                line.ShowVersions = showVersionsBox.Checked;
+                line.Delay = Convert.ToInt32(delaySpinner.SelectedItem.ToString());
+
+                bool stopInserted = database.InsertStop(stop);
+                bool lineInserted = database.InsertLine(line);
+
+                if(stopInserted || lineInserted)
+                {
+                    dbUpdated = true;
+                    Toast.MakeText(this, "Line succesfully added", ToastLength.Short).Show();
+
+                    Intent.PutExtra("dbUpdated", dbUpdated);
+                    SetResult(Result.Ok, Intent);
+                }
+                if(!stopInserted && !lineInserted)
+                    Toast.MakeText(this, "Line already exists", ToastLength.Short).Show();
+            }
         }
 
-        // Initiates search for lines in a selected stop TODO: REFACTOR!
+        // Get lines for the selected stop and show on spinner
         private async void getLines()
         {
             string stopCode = currentStopId.ToString();
@@ -94,7 +113,8 @@ namespace ReittiWidgets.Code.Activities
                     progressDialog.Show();
 
                     try
-                    { 
+                    {
+                        // Get stop information from reittiopas
                         Connector connector = new Connector();
                         connector.Url = RequestBuilder.getStopRequest(stopCode);
                         string resultXml = await connector.GetXmlStringAsync();
@@ -106,12 +126,13 @@ namespace ReittiWidgets.Code.Activities
                         Parser parser = new Parser();
                         this.linesInStop = parser.ParseLinesInStop(resultXml);
 
+                        // Display on spinner
                         spinner = (Spinner)FindViewById(Resource.Id.spinner);
                         List<String> lines = linesInStop.Select(line => line.Number).ToList(); // LAMBDA!
                         ArrayAdapter<string> spinnerAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, lines);
                         spinner.Adapter = spinnerAdapter;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         progressDialog.Hide();
                         progressDialog.Dismiss();
@@ -121,6 +142,16 @@ namespace ReittiWidgets.Code.Activities
                 else
                     Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Short).Show();
             }
+        }
+
+        // Reads stop names and codes from XML.
+        private List<Stop> getStopInformation()
+        {
+            StreamReader streamReader = new StreamReader(Assets.Open("stops.xml"));
+            string content = streamReader.ReadToEnd();
+
+            Parser parser = new Parser();
+            return parser.ParseStops(content);
         }
 
         // Click listener for autocomplete suggestions - extracts selected stop data
@@ -138,25 +169,6 @@ namespace ReittiWidgets.Code.Activities
 
             // Search for lines
             getLines();
-        }
-
-        private async void downloadLines(string stopCode)
-        {
-            Connector connector = new Connector();
-            connector.Url = RequestBuilder.getStopRequest(stopCode);
-            temp = await connector.GetXmlStringAsync();
-
-            progressDialog.Hide();
-
-            /*Task<string> task = connector.GetStream();
-            Task task = new Task(() => 
-            {
-                result = connector.GetStream().Result;
-            });
-            task.Start();
-            task.Wait();*/
-
-            //return lineMap;
         }
     }
 }

@@ -30,5 +30,39 @@ namespace ReittiWidgets.Code.Data
             int i = db.CreateTable<Stop>();
             int j = db.CreateTable<Line>();
         }
+
+        public bool InsertLine(Line line)
+        {
+            // Check if line exists
+            var queryResult = db.Table<Line>().Where(qLine => qLine.Code == line.Code && qLine.StopCode == line.StopCode);
+
+            if (queryResult.Count() > 0)
+                return false;
+
+            int id = 0;
+            id = db.Insert(line);
+
+            if (id != 0)
+                return true;
+            else
+                return false;
+        }
+
+        public bool InsertStop(Stop stop)
+        {
+            // Check if line exists
+            var queryResult = db.Table<Stop>().Where(qStop => qStop.Code == stop.Code);
+
+            if (queryResult.Count() > 0)
+                return false;
+
+            int id = 0;
+            id = db.Insert(stop);
+
+            if (id != 0)
+                return true;
+            else
+                return false;
+        }
     }
 }
