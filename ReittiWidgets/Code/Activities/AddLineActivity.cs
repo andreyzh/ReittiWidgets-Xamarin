@@ -1,22 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
+using ReittiWidgets.Code.Adapters;
 using ReittiWidgets.Code.Data;
 using ReittiWidgets.Code.Reittiopas;
-using System.Xml;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using ReittiWidgets.Code.Adapters;
-using Android.Views.InputMethods;
-using System.Threading.Tasks;
-using System.Net;
+using System.Linq;
 
 namespace ReittiWidgets.Code.Activities
 {
@@ -37,7 +30,6 @@ namespace ReittiWidgets.Code.Activities
         private String currentStopName;
         protected List<Line> linesInStop;
         protected List<Stop> allStops;
-        private string temp;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -65,6 +57,7 @@ namespace ReittiWidgets.Code.Activities
             buttonAddLine.Click += addLine;
         }
 
+        // Handler for add line button. Adds line and stop to DB
         private void addLine(object sender, EventArgs e)
         {
             if(spinner != null)
@@ -76,6 +69,7 @@ namespace ReittiWidgets.Code.Activities
                 Line line = linesInStop.Find(l => l.Number == lineName);
                 line.ShowVersions = showVersionsBox.Checked;
                 line.Delay = Convert.ToInt32(delaySpinner.SelectedItem.ToString());
+                line.StopCode = stop.Code;
 
                 bool stopInserted = database.InsertStop(stop);
                 bool lineInserted = database.InsertLine(line);
