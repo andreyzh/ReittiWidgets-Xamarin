@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using ReittiWidgets.Code.Data;
 using ReittiWidgets.Code;
 using ReittiWidgets.Code.Activities;
+using ReittiWidgets.Code.Fragments;
+using ReittiWidgets.Code.Reittiopas;
 
 namespace ReittiWidgets
 {
@@ -17,13 +19,16 @@ namespace ReittiWidgets
     {
         // Views
         private ListView stopListView;
+        private ProgressDialog progressDialog;
 
         // Members
+        //protected FragmentManager fragmentManager;
+        private readonly int REQUEST_DATABASE_UPDATE = 1;
+        private readonly string TAG_TASK_FRAGMENT = "task_fragment";
         private bool isConnected;
         private List<Stop> stops;
         private Database db = new Database();
-        private readonly int REQUEST_DATABASE_UPDATE = 1;
-
+        private DeparturesFragment departuresFragment;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -41,9 +46,19 @@ namespace ReittiWidgets
 
             // Get stops from DB
             db.CreateAllTables();
-            
+            stops = db.GetStops();
+
+            // Fragment magic
+            departuresFragment = (DeparturesFragment)FragmentManager.FindFragmentByTag(TAG_TASK_FRAGMENT);
+
+            if (Utils.CheckConnectivity(this))
+            {
+                populateStops();
+            }
+            else
+                Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Long).Show();
         }
-        
+
         // Inflate menu
         public override bool OnPrepareOptionsMenu(IMenu menu)
         {
@@ -69,6 +84,33 @@ namespace ReittiWidgets
         private void StopListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private async void populateStops()
+        {
+            // Show progress dialog
+            if (progressDialog == null)
+                progressDialog = new ProgressDialog(this);
+            progressDialog.SetMessage("Loading, please wait");
+            progressDialog.Show();
+
+            // Iterate though stops
+            foreach (Stop stop in stops)
+            {
+                Connector connector = new Connector();
+                connector.Url = RequestBuilder.getStopRequest(stop.Code);
+                string resultXml = await connector.GetXmlStringAsync();
+                
+                foreach(Line line in stop.Lines)
+                {
+
+                }
+            }
+
+            progressDialog.Hide();
+            progressDialog.Dismiss();
+            // Make requests for each stop
+            // Find matching lines
         }
     }
 }

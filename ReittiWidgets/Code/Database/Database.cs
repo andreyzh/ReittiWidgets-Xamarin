@@ -64,5 +64,26 @@ namespace ReittiWidgets.Code.Data
             else
                 return false;
         }
+
+        public List<Stop> GetStops()
+        {
+            List<Stop> allStops = new List<Stop>();
+
+            var queryResultStops = db.Table<Stop>();
+
+            foreach(Stop stop in queryResultStops)
+            {
+                var queryResultLines = db.Table<Line>().Where(line => line.StopCode == stop.Code);
+
+                foreach(Line line in queryResultLines)
+                {
+                    stop.AddLine(line);
+                }
+
+                allStops.Add(stop);
+            }
+
+            return allStops;
+        }
     }
 }

@@ -107,11 +107,11 @@ namespace ReittiWidgets
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f08000e
-			public const int action_add_line = 2131230734;
+			// aapt resource value: 0x7f080013
+			public const int action_add_line = 2131230739;
 			
-			// aapt resource value: 0x7f08000f
-			public const int action_refresh = 2131230735;
+			// aapt resource value: 0x7f080014
+			public const int action_refresh = 2131230740;
 			
 			// aapt resource value: 0x7f08000b
 			public const int buttonAddline = 2131230731;
@@ -134,6 +134,15 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f080006
 			public const int labelDelayDetail = 2131230726;
 			
+			// aapt resource value: 0x7f08000f
+			public const int labelFollowingDeparture = 2131230735;
+			
+			// aapt resource value: 0x7f08000d
+			public const int labelLineName = 2131230733;
+			
+			// aapt resource value: 0x7f08000e
+			public const int labelNextDeparture = 2131230734;
+			
 			// aapt resource value: 0x7f080008
 			public const int labelVersion = 2131230728;
 			
@@ -146,8 +155,14 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f080005
 			public const int spinner2 = 2131230725;
 			
-			// aapt resource value: 0x7f08000d
-			public const int stopsListView = 2131230733;
+			// aapt resource value: 0x7f080011
+			public const int stopLayout = 2131230737;
+			
+			// aapt resource value: 0x7f080012
+			public const int stopNameTextView = 2131230738;
+			
+			// aapt resource value: 0x7f080010
+			public const int stopsListView = 2131230736;
 			
 			// aapt resource value: 0x7f08000c
 			public const int textView = 2131230732;
@@ -175,7 +190,13 @@ namespace ReittiWidgets
 			public const int autocomplete_stop_list = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int Main = 2130903042;
+			public const int line_list_item = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int Main = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int stop_list_item = 2130903044;
 			
 			static Layout()
 			{

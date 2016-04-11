@@ -15,6 +15,10 @@ using System.Text.RegularExpressions;
 
 namespace ReittiWidgets.Code.Reittiopas
 {
+    /// <summary>
+    /// Note: this class works specifically with the concrete stop and
+    /// line objects which is braking principle of proper programming.
+    /// </summary>
     class Parser
     {
         private XmlDocument doc = new XmlDocument();
@@ -76,6 +80,20 @@ namespace ReittiWidgets.Code.Reittiopas
             }
 
             return lines;
+        }
+
+        public Stop ParseLineTimesInStop(string input, Stop stop)
+        {
+            doc.LoadXml(input);
+            XmlElement root = doc.DocumentElement;
+            XmlNodeList nodes = root.SelectNodes("/response/node/departures/node");
+
+            foreach(XmlNode node in nodes)
+            {
+
+            }
+
+            return stop;
         }
     }
 }

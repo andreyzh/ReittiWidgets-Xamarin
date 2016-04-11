@@ -55,6 +55,7 @@
     <Compile Include="Code\Database\Database.cs" />
     <Compile Include="Code\Data\Line.cs" />
     <Compile Include="Code\Data\Stop.cs" />
+    <Compile Include="Code\Fragments\DeparturesFragment.cs" />
     <Compile Include="Code\JavaObjectExtensions.cs" />
     <Compile Include="Code\Reittiopas\Connector.cs" />
     <Compile Include="Code\Reittiopas\Parser.cs" />
@@ -78,6 +79,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\autocomplete_stop_list.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\line_list_item.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\stop_list_item.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
