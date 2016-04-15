@@ -26,17 +26,25 @@ namespace ReittiWidgets.Code.Reittiopas
         public async Task<string> GetXmlStringAsync()
         {
             Task<string> response;
+            string responseContent = null;
 
             if (Url == null)
                 return null;
-            
-            using (HttpClient client = new HttpClient())
+
+            try
             {
-                response = client.GetStringAsync(Url);
+                using (HttpClient client = new HttpClient())
+                {
+                    //client.Timeout = TimeSpan.FromSeconds(3);
+                    response = client.GetStringAsync(Url);
+                    responseContent = await response;
+                }
             }
-
-            string responseContent = await response;
-
+            catch(WebException ex)
+            {
+                //TODO
+            }
+            
             return responseContent;
         }
     }

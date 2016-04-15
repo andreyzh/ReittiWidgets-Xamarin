@@ -11,6 +11,7 @@ using ReittiWidgets.Code;
 using ReittiWidgets.Code.Activities;
 using ReittiWidgets.Code.Fragments;
 using ReittiWidgets.Code.Reittiopas;
+using System.Threading.Tasks;
 
 namespace ReittiWidgets
 {
@@ -94,18 +95,28 @@ namespace ReittiWidgets
             progressDialog.SetMessage("Loading, please wait");
             progressDialog.Show();
 
+            Stop stop = stops[0];
+            //Connector connector = new Connector();
+            //connector.Url = RequestBuilder.getStopRequest(stop.Code);
+            string resultXml = "123"; //await connector.GetXmlStringAsync();
+
+            //Another try:
+            var tasks = new List<Task<string>>();
+
             // Iterate though stops
-            foreach (Stop stop in stops)
+            foreach (Stop stop1 in stops)
             {
                 Connector connector = new Connector();
-                connector.Url = RequestBuilder.getStopRequest(stop.Code);
-                string resultXml = await connector.GetXmlStringAsync();
-                
-                foreach(Line line in stop.Lines)
-                {
-
-                }
+                connector.Url = RequestBuilder.getStopRequest(stop1.Code);
+                tasks.Add(connector.GetXmlStringAsync());
             }
+            foreach(var task in await Task.WhenAll(tasks))
+            {
+                string result = task;
+            }
+
+            if(resultXml == null)
+                Toast.MakeText(this, "Unable to download timetable", ToastLength.Short).Show();
 
             progressDialog.Hide();
             progressDialog.Dismiss();
