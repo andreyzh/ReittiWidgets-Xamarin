@@ -95,28 +95,29 @@ namespace ReittiWidgets
             progressDialog.SetMessage("Loading, please wait");
             progressDialog.Show();
 
-            Stop stop = stops[0];
+            //Stop stop = stops[0];
             //Connector connector = new Connector();
             //connector.Url = RequestBuilder.getStopRequest(stop.Code);
-            string resultXml = "123"; //await connector.GetXmlStringAsync();
+            //string resultXml = "123"; //await connector.GetXmlStringAsync();
 
             //Another try:
             var tasks = new List<Task<string>>();
 
-            // Iterate though stops
-            foreach (Stop stop1 in stops)
+            // Download XML files for each stop
+            foreach (Stop stop in stops)
             {
                 Connector connector = new Connector();
-                connector.Url = RequestBuilder.getStopRequest(stop1.Code);
+                connector.Url = RequestBuilder.getStopRequest(stop.Code);
                 tasks.Add(connector.GetXmlStringAsync());
             }
-            foreach(var task in await Task.WhenAll(tasks))
-            {
-                string result = task;
-            }
 
-            if(resultXml == null)
-                Toast.MakeText(this, "Unable to download timetable", ToastLength.Short).Show();
+            List<string> resultXml = new List<string>(await Task.WhenAll(tasks));
+
+            if(resultXml.Count == 0)
+                Toast.MakeText(this, Resource.String.no_timetable_data, ToastLength.Short).Show();
+
+            Parser parser = new Parser();
+            parser.ParseDepartureData(resultXml, stops);
 
             progressDialog.Hide();
             progressDialog.Dismiss();

@@ -46,6 +46,7 @@ namespace ReittiWidgets.Code.Data
                 delay = value;
             }
         }
+        [Ignore]
         public string NextDeparture
         {
             get
@@ -54,6 +55,7 @@ namespace ReittiWidgets.Code.Data
                 return result.HasValue ? result.Value.ToString("HH : mm") : " - ";
             }
         }
+        [Ignore]
         public string FollowingDeparture
         {
             get
@@ -70,6 +72,9 @@ namespace ReittiWidgets.Code.Data
         public void SetDepartures(List<DateTime> departures)
         {
             this.departures = departures;
+        }
+        public void AddDeparture(string departureTime)
+        {
         }
         private DateTime? getNextDeparture()
         {

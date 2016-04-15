@@ -242,14 +242,14 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f050005
 			public const int add_line = 2131034117;
 			
-			// aapt resource value: 0x7f050018
-			public const int add_widget = 2131034136;
+			// aapt resource value: 0x7f050019
+			public const int add_widget = 2131034137;
 			
 			// aapt resource value: 0x7f050002
 			public const int app_name = 2131034114;
 			
-			// aapt resource value: 0x7f050017
-			public const int appwidget_text = 2131034135;
+			// aapt resource value: 0x7f050018
+			public const int appwidget_text = 2131034136;
 			
 			// aapt resource value: 0x7f05000e
 			public const int content_description_remove_line = 2131034126;
@@ -266,8 +266,11 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f050011
 			public const int no_connection = 2131034129;
 			
+			// aapt resource value: 0x7f050017
+			public const int no_time = 2131034135;
+			
 			// aapt resource value: 0x7f050016
-			public const int no_time = 2131034134;
+			public const int no_timetable_data = 2131034134;
 			
 			// aapt resource value: 0x7f050006
 			public const int show_versions = 2131034118;
@@ -302,8 +305,8 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f050004
 			public const int title_activity_edit_stop = 2131034116;
 			
-			// aapt resource value: 0x7f050019
-			public const int update_widget = 2131034137;
+			// aapt resource value: 0x7f05001a
+			public const int update_widget = 2131034138;
 			
 			static String()
 			{

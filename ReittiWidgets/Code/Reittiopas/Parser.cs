@@ -82,18 +82,43 @@ namespace ReittiWidgets.Code.Reittiopas
             return lines;
         }
 
-        public Stop ParseLineTimesInStop(string input, Stop stop)
+        public List<Stop> ParseDepartureData(List<string> xmlData, List<Stop> stops)
         {
-            doc.LoadXml(input);
-            XmlElement root = doc.DocumentElement;
-            XmlNodeList nodes = root.SelectNodes("/response/node/departures/node");
-
-            foreach(XmlNode node in nodes)
+            foreach(string xml in xmlData)
             {
+                // Find which stop does this XML relate to
+                doc.LoadXml(xml);
+                XmlElement root = doc.DocumentElement;
+                XmlNode stopCodeNode = root.SelectSingleNode("/response/node/code");
+                Stop stop = stops.Find(s => s.Code == stopCodeNode.InnerText);
 
+                // Stop found - work on line information
+                if(stop != null)
+                {
+                    XmlNodeList departureNodes = root.SelectNodes("/response/node/departures/node");
+
+                    foreach(Line line in stop.Lines)
+                    {
+                        List<string> departureStrings = new List<string>();
+
+                        // Goes though all departure nodes in order
+                        foreach(XmlNode node in departureNodes)
+                        {
+                            XmlNodeList departureDetails = node.ChildNodes;
+                            XmlNode code = departureDetails.Item(0);
+                            XmlNode time = departureDetails.Item(1);
+
+                            if (code.InnerText.StartsWith(line.Code))
+                                departureStrings.Add(time.InnerText);
+                        }
+
+                        line.SetDepartures(Utils.ConvertDepartureToDate(departureStrings));
+                    }
+                }
+                //XmlNodeList nodes = root.SelectNodes();
             }
 
-            return stop;
+            return stops;
         }
     }
 }

@@ -29,6 +29,7 @@
     <string name="db_updated_toast">Line successfully added</string>
     <string name="db_exists_toast">Line already exists</string>
     <string name="enter_stop_name">Please enter stop name</string>
+    <string name="no_timetable_data">Unable to download timetable data</string>
     <!-- Other -->
     <string name="no_time"> - </string>
 
