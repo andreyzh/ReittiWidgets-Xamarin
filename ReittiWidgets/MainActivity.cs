@@ -55,6 +55,7 @@ namespace ReittiWidgets
             if (Utils.CheckConnectivity(this))
             {
                 populateStops();
+
             }
             else
                 Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Long).Show();
@@ -117,12 +118,10 @@ namespace ReittiWidgets
                 Toast.MakeText(this, Resource.String.no_timetable_data, ToastLength.Short).Show();
 
             Parser parser = new Parser();
-            parser.ParseDepartureData(resultXml, stops);
+            stops = parser.ParseDepartureData(resultXml, stops);
 
             progressDialog.Hide();
             progressDialog.Dismiss();
-            // Make requests for each stop
-            // Find matching lines
         }
     }
 }

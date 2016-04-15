@@ -112,10 +112,10 @@ namespace ReittiWidgets.Code.Reittiopas
                                 departureStrings.Add(time.InnerText);
                         }
 
+                        // Convert recieved times and populate line timetable
                         line.SetDepartures(Utils.ConvertDepartureToDate(departureStrings));
                     }
                 }
-                //XmlNodeList nodes = root.SelectNodes();
             }
 
             return stops;

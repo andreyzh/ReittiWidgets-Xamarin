@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Code\Activities\AddLineActivity.cs" />
     <Compile Include="Code\Adapters\AutoCompleteAdapter.cs" />
+    <Compile Include="Code\Adapters\StopListAdapter.cs" />
     <Compile Include="Code\Database\Database.cs" />
     <Compile Include="Code\Data\Line.cs" />
     <Compile Include="Code\Data\Stop.cs" />
@@ -85,6 +86,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\stop_list_item.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\list_stop_layout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
