@@ -12,6 +12,7 @@ using ReittiWidgets.Code.Activities;
 using ReittiWidgets.Code.Fragments;
 using ReittiWidgets.Code.Reittiopas;
 using System.Threading.Tasks;
+using ReittiWidgets.Code.Adapters;
 
 namespace ReittiWidgets
 {
@@ -30,6 +31,7 @@ namespace ReittiWidgets
         private List<Stop> stops;
         private Database db = new Database();
         private DeparturesFragment departuresFragment;
+        private StopListAdapter adapter;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -55,7 +57,7 @@ namespace ReittiWidgets
             if (Utils.CheckConnectivity(this))
             {
                 populateStops();
-
+                
             }
             else
                 Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Long).Show();
@@ -122,6 +124,9 @@ namespace ReittiWidgets
 
             progressDialog.Hide();
             progressDialog.Dismiss();
+
+            adapter = new StopListAdapter(this, stops);
+            stopListView.Adapter = adapter;
         }
     }
 }

@@ -28,6 +28,13 @@ namespace ReittiWidgets.Code.Adapters
             }
         }
 
+        public StopListAdapter(Context context, List<Stop> stopList)
+        {
+            layoutInflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
+            this.context = context;
+            this.stopList = stopList;
+        }
+
         public override Java.Lang.Object GetItem(int position)
         {
             return stopList[position];
@@ -51,7 +58,36 @@ namespace ReittiWidgets.Code.Adapters
             Stop stop = (Stop)GetItem(position);
             ((TextView)convertView.FindViewById(Resource.Id.stopNameTextView)).Text = stop.Name;
 
+            
+            foreach(Line line in stop.Lines)
+            {
+                // Create views and set line name
+                LinearLayout stopLayout = (LinearLayout)convertView.FindViewById(Resource.Id.stopLayout);
+                View lineView = layoutInflater.Inflate(Resource.Layout.list_line_layout, null, false);
+                TextView lineName = (TextView)lineView.FindViewById(Resource.Id.labelLineName);
+                lineName.Text = line.Number;
+                stopLayout.AddView(lineView);
+
+                // Set departure times
+                TextView nextDeparture = (TextView)lineView.FindViewById(Resource.Id.labelNextDeparture);
+                if (line.NextDeparture != null)
+                    nextDeparture.Text = line.NextDeparture;
+                else
+                    nextDeparture.Text = context.GetString(Resource.String.no_time); // -
+
+                TextView followingDeparture = (TextView)lineView.FindViewById(Resource.Id.labelFollowingDeparture);
+                if (line.FollowingDeparture != null)
+                    followingDeparture.Text = line.FollowingDeparture;
+                else
+                    followingDeparture.Text = context.GetString(Resource.String.no_time);
+            }
+
             return convertView;
+        }
+
+        public override void NotifyDataSetChanged()
+        {
+            base.NotifyDataSetChanged();
         }
     }
 }

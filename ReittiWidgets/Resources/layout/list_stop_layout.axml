@@ -16,5 +16,5 @@
         android:singleLine="true"
         android:textSize="20sp"
         android:layout_marginTop="2dp"
-        android:textColor="@color/TextWhite" />
+        android:textColor="@android:color/white" />
 </LinearLayout>
