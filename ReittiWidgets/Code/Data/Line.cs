@@ -52,7 +52,7 @@ namespace ReittiWidgets.Code.Data
             get
             {
                 DateTime? result = getNextDeparture();
-                return result.HasValue ? result.Value.ToString("HH : mm") : " - ";
+                return result.HasValue ? result.Value.ToString("HH:mm") : " - ";
             }
         }
         [Ignore]
@@ -61,7 +61,7 @@ namespace ReittiWidgets.Code.Data
             get
             {
                 DateTime? result = getFollowingDeparture();
-                return result.HasValue ? result.Value.ToString("HH : mm") : " - ";
+                return result.HasValue ? result.Value.ToString("HH:mm") : " - ";
             }
         }
         public string Number { get; set; }

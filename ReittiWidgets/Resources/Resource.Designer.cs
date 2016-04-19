@@ -57,6 +57,28 @@ namespace ReittiWidgets
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f080000
+			public const int ListBlue = 2131230720;
+			
+			// aapt resource value: 0x7f080001
+			public const int ListGreen = 2131230721;
+			
+			// aapt resource value: 0x7f080002
+			public const int TextWhite = 2131230722;
+			
+			static Color()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Dimension
 		{
 			
@@ -107,68 +129,68 @@ namespace ReittiWidgets
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080013
-			public const int action_add_line = 2131230739;
+			// aapt resource value: 0x7f0a0013
+			public const int action_add_line = 2131361811;
 			
-			// aapt resource value: 0x7f080014
-			public const int action_refresh = 2131230740;
+			// aapt resource value: 0x7f0a0014
+			public const int action_refresh = 2131361812;
 			
-			// aapt resource value: 0x7f08000b
-			public const int buttonAddline = 2131230731;
+			// aapt resource value: 0x7f0a000b
+			public const int buttonAddline = 2131361803;
 			
-			// aapt resource value: 0x7f080009
-			public const int checkBoxShowVersions = 2131230729;
+			// aapt resource value: 0x7f0a0009
+			public const int checkBoxShowVersions = 2131361801;
 			
-			// aapt resource value: 0x7f080002
-			public const int delayLayout = 2131230722;
+			// aapt resource value: 0x7f0a0002
+			public const int delayLayout = 2131361794;
 			
-			// aapt resource value: 0x7f080003
-			public const int delayLayoutInner = 2131230723;
+			// aapt resource value: 0x7f0a0003
+			public const int delayLayoutInner = 2131361795;
 			
-			// aapt resource value: 0x7f080000
-			public const int inputStopName = 2131230720;
+			// aapt resource value: 0x7f0a0000
+			public const int inputStopName = 2131361792;
 			
-			// aapt resource value: 0x7f080004
-			public const int labelDelay = 2131230724;
+			// aapt resource value: 0x7f0a0004
+			public const int labelDelay = 2131361796;
 			
-			// aapt resource value: 0x7f080006
-			public const int labelDelayDetail = 2131230726;
+			// aapt resource value: 0x7f0a0006
+			public const int labelDelayDetail = 2131361798;
 			
-			// aapt resource value: 0x7f08000f
-			public const int labelFollowingDeparture = 2131230735;
+			// aapt resource value: 0x7f0a000f
+			public const int labelFollowingDeparture = 2131361807;
 			
-			// aapt resource value: 0x7f08000d
-			public const int labelLineName = 2131230733;
+			// aapt resource value: 0x7f0a000d
+			public const int labelLineName = 2131361805;
 			
-			// aapt resource value: 0x7f08000e
-			public const int labelNextDeparture = 2131230734;
+			// aapt resource value: 0x7f0a000e
+			public const int labelNextDeparture = 2131361806;
 			
-			// aapt resource value: 0x7f080008
-			public const int labelVersion = 2131230728;
+			// aapt resource value: 0x7f0a0008
+			public const int labelVersion = 2131361800;
 			
-			// aapt resource value: 0x7f08000a
-			public const int labelVersionDetail = 2131230730;
+			// aapt resource value: 0x7f0a000a
+			public const int labelVersionDetail = 2131361802;
 			
-			// aapt resource value: 0x7f080001
-			public const int spinner = 2131230721;
+			// aapt resource value: 0x7f0a0001
+			public const int spinner = 2131361793;
 			
-			// aapt resource value: 0x7f080005
-			public const int spinner2 = 2131230725;
+			// aapt resource value: 0x7f0a0005
+			public const int spinner2 = 2131361797;
 			
-			// aapt resource value: 0x7f080010
-			public const int stopLayout = 2131230736;
+			// aapt resource value: 0x7f0a0010
+			public const int stopLayout = 2131361808;
 			
-			// aapt resource value: 0x7f080011
-			public const int stopNameTextView = 2131230737;
+			// aapt resource value: 0x7f0a0011
+			public const int stopNameTextView = 2131361809;
 			
-			// aapt resource value: 0x7f080012
-			public const int stopsListView = 2131230738;
+			// aapt resource value: 0x7f0a0012
+			public const int stopsListView = 2131361810;
 			
-			// aapt resource value: 0x7f08000c
-			public const int textView = 2131230732;
+			// aapt resource value: 0x7f0a000c
+			public const int textView = 2131361804;
 			
-			// aapt resource value: 0x7f080007
-			public const int versionLayout = 2131230727;
+			// aapt resource value: 0x7f0a0007
+			public const int versionLayout = 2131361799;
 			
 			static Id()
 			{
@@ -217,8 +239,8 @@ namespace ReittiWidgets
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f070000
-			public const int MainMenu = 2131165184;
+			// aapt resource value: 0x7f090000
+			public const int MainMenu = 2131296256;
 			
 			static Menu()
 			{
@@ -320,6 +342,25 @@ namespace ReittiWidgets
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f070000
+			public const int AppTheme = 2131165184;
+			
+			// aapt resource value: 0x7f070001
+			public const int Divider = 2131165185;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}

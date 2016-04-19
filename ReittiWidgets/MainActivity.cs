@@ -57,7 +57,6 @@ namespace ReittiWidgets
             if (Utils.CheckConnectivity(this))
             {
                 populateStops();
-                
             }
             else
                 Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Long).Show();
@@ -75,6 +74,27 @@ namespace ReittiWidgets
         {
             int id = item.ItemId;
 
+            switch(item.ItemId)
+            {
+                // Add line
+                case Resource.Id.action_add_line:
+                    Intent intent = new Intent(this, typeof(AddLineActivity));
+                    StartActivityForResult(intent, REQUEST_DATABASE_UPDATE);
+                    break;
+                // Refresh timetable
+                case Resource.Id.action_refresh:
+                    if (Utils.CheckConnectivity(this))
+                    {
+                        populateStops();
+                        adapter.NotifyDataSetChanged();
+                    }
+                    else
+                        Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Long).Show();
+                    break;
+                default:
+                    break;
+            }
+
             if(item.ItemId == Resource.Id.action_add_line)
             {
                 Intent intent = new Intent(this, typeof(AddLineActivity));
@@ -84,12 +104,34 @@ namespace ReittiWidgets
             return base.OnOptionsItemSelected(item);
         }
 
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if(resultCode == Result.Ok)
+            {
+                if(requestCode == REQUEST_DATABASE_UPDATE && stops != null)
+                {
+                    bool dbUpdated = data.GetBooleanExtra("dbUpdated", false);
+                    if(dbUpdated)
+                    {
+                        stops.Clear();
+                        stops = db.GetStops();
+                        populateStops();
+                        adapter.NotifyDataSetChanged(); // Redundant?
+                    }
+                }
+            }
+        }
+
         //TODO: deal with this magic
         private void StopListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             throw new NotImplementedException();
         }
 
+        // Fetch and parse XML with stop information async. Put into adapter
+        //FIXME: Too much functionality in one place
         private async void populateStops()
         {
             // Show progress dialog
@@ -98,12 +140,7 @@ namespace ReittiWidgets
             progressDialog.SetMessage("Loading, please wait");
             progressDialog.Show();
 
-            //Stop stop = stops[0];
-            //Connector connector = new Connector();
-            //connector.Url = RequestBuilder.getStopRequest(stop.Code);
-            //string resultXml = "123"; //await connector.GetXmlStringAsync();
-
-            //Another try:
+            // One task (thread) per each stop
             var tasks = new List<Task<string>>();
 
             // Download XML files for each stop
@@ -114,6 +151,7 @@ namespace ReittiWidgets
                 tasks.Add(connector.GetXmlStringAsync());
             }
 
+            // Contains set of XML files from RO
             List<string> resultXml = new List<string>(await Task.WhenAll(tasks));
 
             if(resultXml.Count == 0)

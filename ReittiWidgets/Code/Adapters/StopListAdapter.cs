@@ -55,6 +55,11 @@ namespace ReittiWidgets.Code.Adapters
         {
             convertView = layoutInflater.Inflate(Resource.Layout.list_stop_layout, parent, false);
 
+            if (position % 2 == 1)
+                convertView.SetBackgroundColor(context.Resources.GetColor(Resource.Color.ListGreen));
+            else
+                convertView.SetBackgroundColor(context.Resources.GetColor(Resource.Color.ListBlue));
+
             Stop stop = (Stop)GetItem(position);
             ((TextView)convertView.FindViewById(Resource.Id.stopNameTextView)).Text = stop.Name;
 
