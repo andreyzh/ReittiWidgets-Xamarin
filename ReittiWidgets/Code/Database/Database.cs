@@ -65,6 +65,14 @@ namespace ReittiWidgets.Code.Data
                 return false;
         }
 
+        public bool DeleteStop(Stop stop)
+        {
+            int id = 0;
+            id = db.Delete(stop);
+
+            return id != 0 ? true : false;
+        }
+
         public List<Stop> GetStops()
         {
             List<Stop> allStops = new List<Stop>();

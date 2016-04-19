@@ -147,6 +147,9 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f0a0003
 			public const int delayLayoutInner = 2131361795;
 			
+			// aapt resource value: 0x7f0a0015
+			public const int deleteStop = 2131361813;
+			
 			// aapt resource value: 0x7f0a0000
 			public const int inputStopName = 2131361792;
 			
@@ -241,6 +244,9 @@ namespace ReittiWidgets
 			
 			// aapt resource value: 0x7f090000
 			public const int MainMenu = 2131296256;
+			
+			// aapt resource value: 0x7f090001
+			public const int stops_context = 2131296257;
 			
 			static Menu()
 			{

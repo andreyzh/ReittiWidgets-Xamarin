@@ -124,14 +124,42 @@ namespace ReittiWidgets
             }
         }
 
+        public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
+        {
+            base.OnCreateContextMenu(menu, v, menuInfo);
+
+            MenuInflater.Inflate(Resource.Menu.stops_context, menu);
+        }
+        public override bool OnContextItemSelected(IMenuItem item)
+        {
+            AdapterView.AdapterContextMenuInfo adapterContextMenu = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
+            Stop stop = (Stop)stopListView.GetItemAtPosition(adapterContextMenu.Position);
+
+            switch(item.ItemId)
+            {
+                case Resource.Id.deleteStop:
+                    db.DeleteStop(stop);
+                    Toast.MakeText(this, Resources.GetString(Resource.String.stop_deleted), ToastLength.Long).Show();
+                    adapter.RemoveItem(adapterContextMenu.Position);
+                    adapter.NotifyDataSetChanged();
+                    return true;
+                default:
+                    return base.OnContextItemSelected(item); ;
+            }
+        }
+
         //TODO: deal with this magic
         private void StopListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            throw new NotImplementedException();
+           
         }
 
-        // Fetch and parse XML with stop information async. Put into adapter
-        //FIXME: Too much functionality in one place
+        /// <summary>
+        /// This is a "super function" that
+        /// 1. Gets RO XML stop tables using async multi-thread task
+        /// 2. Parses departure information and puts it to the stops/lines
+        /// 3. Initalizes adapter to display everything
+        /// </summary>
         private async void populateStops()
         {
             // Show progress dialog
