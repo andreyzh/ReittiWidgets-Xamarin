@@ -51,7 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Activities\AddLineActivity.cs" />
+    <Compile Include="Code\Activities\EditLineActivity.cs" />
     <Compile Include="Code\Adapters\AutoCompleteAdapter.cs" />
+    <Compile Include="Code\Adapters\LineListAdapter.cs" />
     <Compile Include="Code\Adapters\StopListAdapter.cs" />
     <Compile Include="Code\Database\Database.cs" />
     <Compile Include="Code\Data\Line.cs" />
@@ -95,6 +97,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\menu\stops_context.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EditLine.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\list_edit_line_layout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

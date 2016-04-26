@@ -13,7 +13,7 @@ using SQLite;
 
 namespace ReittiWidgets.Code.Data
 {
-    class Line
+    class Line : Java.Lang.Object
     {
         private int delay = 5;
         private List<DateTime> departures;
