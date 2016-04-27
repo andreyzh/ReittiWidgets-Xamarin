@@ -65,8 +65,8 @@ namespace ReittiWidgets.Code.Adapters
 
             // Add change/click listeners
             deleteLineImageButton.Click += deleteLine;
-            //showVariantsSwitch.setOnCheckedChangeListener(showVersionsListener);
-            //delaySpinner.setOnItemSelectedListener(spinnerListener);
+            showVariantsSwitch.CheckedChange += updateLine;
+            delaySpinner.ItemSelected += updateLine;
 
             // Set position tags for the elements
             // so that we know which view was selected
@@ -95,6 +95,17 @@ namespace ReittiWidgets.Code.Adapters
             db.DeleteLine(line);
             RemoveItem(position);
             NotifyDataSetChanged();
+        }
+
+        private void updateLine(object sender, EventArgs e)
+        {
+            View view = (View)sender;
+            int position = (int)view.Tag;
+
+            Line line = lineList[position];
+
+            var asd = sender.GetType();
+            //TODO: work based on type
         }
     }
 }

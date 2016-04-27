@@ -65,6 +65,12 @@ namespace ReittiWidgets.Code.Data
                 return false;
         }
 
+        public bool UpdateLine(Line line)
+        {
+            int i = db.Update(line);
+            return i !=0 ? true : false;
+        }
+
         public bool DeleteLine(Line line)
         {
             int id = 0;
@@ -78,6 +84,11 @@ namespace ReittiWidgets.Code.Data
         {
             int id = 0;
             id = db.Delete(stop);
+
+            foreach(Line line in stop.Lines)
+            {
+                db.Delete(line);
+            }
 
             return id != 0 ? true : false;
         }
