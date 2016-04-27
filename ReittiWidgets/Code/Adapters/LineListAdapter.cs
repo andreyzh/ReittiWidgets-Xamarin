@@ -64,21 +64,37 @@ namespace ReittiWidgets.Code.Adapters
             deleteLineImageButton = (ImageButton)convertView.FindViewById(Resource.Id.imageButtonDeleteLine);
 
             // Add change/click listeners
-            //deleteLineImageButton.setOnClickListener(deleteLineClickListener);
+            deleteLineImageButton.Click += deleteLine;
             //showVariantsSwitch.setOnCheckedChangeListener(showVersionsListener);
             //delaySpinner.setOnItemSelectedListener(spinnerListener);
 
             // Set position tags for the elements
             // so that we know which view was selected
-            //showVariantsSwitch.setTag(position);
-            //deleteLineImageButton.setTag(position);
-            //delaySpinner.setTag(position);
+            showVariantsSwitch.Tag = position;
+            deleteLineImageButton.Tag = position;
+            delaySpinner.Tag = position;
 
-            //((TextView)convertView.FindViewById(Resource.Id.labelLineName)).SetText(line.Number);
-            //delaySpinner.setSelection(line.getDelay() - 1);
-            //showVariantsSwitch.setChecked(line.isShowVersions());
+            ((TextView)convertView.FindViewById(Resource.Id.labelLineName)).Text = line.Number;
+            delaySpinner.SetSelection(line.Delay - 1);
+            showVariantsSwitch.Checked = line.ShowVersions;
 
             return convertView;
+        }
+
+        public void RemoveItem(int position)
+        {
+            lineList.RemoveAt(position);
+        }
+
+        private void deleteLine(object sender, EventArgs e)
+        {
+            View view = (View)sender;
+            int position = (int)view.Tag;
+
+            Line line = lineList[position];
+            db.DeleteLine(line);
+            RemoveItem(position);
+            NotifyDataSetChanged();
         }
     }
 }

@@ -18,6 +18,7 @@ namespace ReittiWidgets.Code.Data
         private int delay = 5;
         private List<DateTime> departures;
 
+        #region Properties
         [Ignore]
         public bool HasDepartures
         {
@@ -33,6 +34,7 @@ namespace ReittiWidgets.Code.Data
         {
             get; set;
         }
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int Delay
         {
@@ -68,6 +70,7 @@ namespace ReittiWidgets.Code.Data
         public string Code { get; set; }
         [Indexed]
         public string StopCode { get; set; }
+        #endregion
 
         public void SetDepartures(List<DateTime> departures)
         {

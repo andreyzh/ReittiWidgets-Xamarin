@@ -65,6 +65,15 @@ namespace ReittiWidgets.Code.Data
                 return false;
         }
 
+        public bool DeleteLine(Line line)
+        {
+            int id = 0;
+
+            id = db.Delete(line);
+
+            return id != 0 ? true : false;
+        }
+
         public bool DeleteStop(Stop stop)
         {
             int id = 0;
@@ -92,6 +101,41 @@ namespace ReittiWidgets.Code.Data
             }
 
             return allStops;
+        }
+
+        public Stop GetStop(string stopCode)
+        {
+            Stop stop;
+            var queryResultStop = db.Table<Stop>().Where(s => s.Code == stopCode);
+
+            if (queryResultStop.Count() > 0)
+            { 
+                stop = (Stop)queryResultStop.First();
+
+                // Get lines
+                var queryResultLines = db.Table<Line>().Where(line => line.StopCode == stop.Code);
+
+                foreach (Line line in queryResultLines)
+                {
+                    stop.AddLine(line);
+                }
+
+                return stop;
+            }
+            else
+                return null;
+        }
+        
+        private List<Line> getLinesInStop(string stopCode)
+        {
+            List<Line> lineList = new List<Line>();
+
+            var queryResultLines = db.Table<Line>().Where(line => line.StopCode == stopCode);
+
+            if(queryResultLines.Count() > 0)
+                lineList.AddRange(queryResultLines);
+
+            return lineList;
         }
     }
 }

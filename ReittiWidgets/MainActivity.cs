@@ -130,6 +130,7 @@ namespace ReittiWidgets
 
             MenuInflater.Inflate(Resource.Menu.stops_context, menu);
         }
+
         public override bool OnContextItemSelected(IMenuItem item)
         {
             AdapterView.AdapterContextMenuInfo adapterContextMenu = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
@@ -151,7 +152,10 @@ namespace ReittiWidgets
         //TODO: deal with this magic
         private void StopListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-           
+            Stop stop = (Stop)stopListView.GetItemAtPosition(e.Position);
+            Intent intent = new Intent(this, typeof(EditLineActivity));
+            intent.PutExtra("stopCode", stop.Code); // Is this used?
+            StartActivity(intent);
         }
 
         /// <summary>
