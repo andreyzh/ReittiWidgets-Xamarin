@@ -1,21 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-    </style>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
+    <item name="android:actionBarStyle">@style/ActionBarTheme</item>
+  </style>
 
-    <!-- Colors -->
-    <color name="ListBlue">#0052CC</color>
-    <color name="ListGreen">#248F24</color>
-    <color name="TextWhite">#EBEBEB</color>
+  <!-- Colors -->
+  <color name="ListBlue">#0052CC</color>
+  <color name="ListGreen">#248F24</color>
+  <color name="TextWhite">#EBEBEB</color>
+  <color name="TextGrey100">#F5F5F5</color>
+  <color name="TextLighterGray">#616161</color>
+  <color name="DividerGray500">#9E9E9E</color>
 
-    <!-- Divider -->
-    <style name="Divider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">?android:attr/listDivider</item>
-    </style>
+  <!-- Divider -->
+  <style name="Divider">
+      <item name="android:layout_width">match_parent</item>
+      <item name="android:layout_height">1dp</item>
+      <item name="android:background">?android:attr/listDivider</item>
+  </style>
+
+  <style name="ActionBarTheme" parent="@android:style/Widget.Material.Light.ActionBar">
+    <item name="android:background">#0D47A1</item>
+  </style>
 
 </resources>

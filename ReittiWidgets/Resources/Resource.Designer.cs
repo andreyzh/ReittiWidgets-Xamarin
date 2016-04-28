@@ -60,11 +60,20 @@ namespace ReittiWidgets
 		public partial class Color
 		{
 			
+			// aapt resource value: 0x7f080005
+			public const int DividerGray500 = 2131230725;
+			
 			// aapt resource value: 0x7f080000
 			public const int ListBlue = 2131230720;
 			
 			// aapt resource value: 0x7f080001
 			public const int ListGreen = 2131230721;
+			
+			// aapt resource value: 0x7f080003
+			public const int TextGrey100 = 2131230723;
+			
+			// aapt resource value: 0x7f080004
+			public const int TextLighterGray = 2131230724;
 			
 			// aapt resource value: 0x7f080002
 			public const int TextWhite = 2131230722;
@@ -265,9 +274,6 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f030007
 			public const int Main = 2130903047;
 			
-			// aapt resource value: 0x7f030008
-			public const int stop_list_item = 2130903048;
-			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -393,6 +399,9 @@ namespace ReittiWidgets
 		
 		public partial class Style
 		{
+			
+			// aapt resource value: 0x7f070002
+			public const int ActionBarTheme = 2131165186;
 			
 			// aapt resource value: 0x7f070000
 			public const int AppTheme = 2131165184;

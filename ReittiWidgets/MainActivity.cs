@@ -16,7 +16,7 @@ using ReittiWidgets.Code.Adapters;
 
 namespace ReittiWidgets
 {
-    [Activity(Label = "Reitti Widgets", MainLauncher = true, Icon = "@drawable/ic_main", Theme = "@android:style/Theme.Material.Light.DarkActionBar")]
+    [Activity(Label = "Reitti Widgets", MainLauncher = true, Theme = "@android:style/Theme.Material.Light.DarkActionBar")]
     public class MainActivity : Activity
     {
         // Views

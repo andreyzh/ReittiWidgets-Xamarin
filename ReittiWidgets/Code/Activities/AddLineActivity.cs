@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace ReittiWidgets.Code.Activities
 {
-    [Activity(Label = "Add Line", Icon = "@drawable/ic_main", Theme = "@android:style/Theme.Material.Light.DarkActionBar")]
+    [Activity(Label = "@string/title_activity_add_line", Icon = "@drawable/ic_main", Theme = "@android:style/Theme.Material.Light.DarkActionBar")]
     class AddLineActivity : Activity
     {
         // UI Elements

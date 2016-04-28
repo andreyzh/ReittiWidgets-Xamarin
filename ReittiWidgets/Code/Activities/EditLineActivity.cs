@@ -14,7 +14,7 @@ using ReittiWidgets.Code.Adapters;
 
 namespace ReittiWidgets.Code.Activities
 {
-    [Activity(Label = "Edit Line", Icon = "@drawable/ic_main", Theme = "@android:style/Theme.Material.Light.DarkActionBar")]
+    [Activity(Label = "@string/title_activity_edit_stop", Icon = "@drawable/ic_main", Theme = "@android:style/Theme.Material.Light.DarkActionBar")]
     class EditLineActivity : Activity
     {
         protected LineListAdapter adapter;
