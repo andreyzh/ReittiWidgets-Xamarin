@@ -66,7 +66,7 @@ namespace ReittiWidgets.Code.Adapters
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             if (convertView == null)
-                convertView = lInflater.Inflate(Resource.Layout.autocomplete_stop_list, parent, false);
+                convertView = lInflater.Inflate(Resource.Layout.addline_list_autocomplete_item, parent, false);
 
             ((TextView)convertView.FindViewById(Resource.Id.textView)).Text = GetItem(position).ToString();
 

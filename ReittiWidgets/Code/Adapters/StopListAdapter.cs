@@ -53,7 +53,7 @@ namespace ReittiWidgets.Code.Adapters
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            convertView = layoutInflater.Inflate(Resource.Layout.list_stop_layout, parent, false);
+            convertView = layoutInflater.Inflate(Resource.Layout.main_list_stop_item, parent, false);
 
             /*
             if (position % 2 == 1)
@@ -70,7 +70,7 @@ namespace ReittiWidgets.Code.Adapters
             {
                 // Create views and set line name
                 LinearLayout stopLayout = (LinearLayout)convertView.FindViewById(Resource.Id.stopLayout);
-                View lineView = layoutInflater.Inflate(Resource.Layout.list_line_layout, null, false);
+                View lineView = layoutInflater.Inflate(Resource.Layout.main_list_line_item, null, false);
                 TextView lineName = (TextView)lineView.FindViewById(Resource.Id.labelLineName);
                 lineName.Text = line.Number;
                 stopLayout.AddView(lineView);

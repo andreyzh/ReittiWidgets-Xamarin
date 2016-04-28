@@ -10,11 +10,11 @@
   
     <!-- Controls -->
     <string name="add_line">Add Line</string>
-    <string name="show_versions">Show all variants</string>
+    <string name="show_versions">Include time for all variants</string>
     <string name="show_widget">Display stop in widget</string>
-    <string name="show_versions_detail">Display all variants of the line e.g. for bus line 132 show also 132N and 132NT</string>
-    <string name="time_delay">Set first departure delay, min</string>
-    <string name="time_delay_detail">Do not show departures leaving in less then number of minutes indicated</string>
+    <string name="show_versions_detail">E.g. 132, 132N and 132NT</string>
+    <string name="time_delay">Time to reach stop, min</string>
+    <string name="time_delay_detail">Hides departures leaving too soon</string>
     <string name="stop_code">Stop name</string>
     <string name="action_add_line">Add Line</string>
     <string name="action_settings">Settings</string>

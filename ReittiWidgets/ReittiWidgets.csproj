@@ -81,16 +81,13 @@
     <AndroidResource Include="Resources\layout\AddLine.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\autocomplete_stop_list.axml">
+    <AndroidResource Include="Resources\layout\addline_list_autocomplete_item.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\line_list_item.axml">
+    <AndroidResource Include="Resources\layout\main_list_stop_item.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\list_stop_layout.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\list_line_layout.axml">
+    <AndroidResource Include="Resources\layout\main_list_line_item.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\menu\stops_context.axml">
@@ -99,7 +96,7 @@
     <AndroidResource Include="Resources\layout\EditLine.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\list_edit_line_layout.axml">
+    <AndroidResource Include="Resources\layout\editline_list_line_item.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

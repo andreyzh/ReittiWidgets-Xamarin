@@ -47,7 +47,7 @@ namespace ReittiWidgets.Code.Activities
 
             // Set adapter for autocomplete
             inputStopName = (AutoCompleteTextView)FindViewById(Resource.Id.inputStopName);
-            AutoCompleteAdapter adapter = new AutoCompleteAdapter(this, Resource.Layout.autocomplete_stop_list, allStops);
+            AutoCompleteAdapter adapter = new AutoCompleteAdapter(this, Resource.Layout.addline_list_autocomplete_item, allStops);
             inputStopName.Adapter = adapter;
 
             // Set listener for autocomplete

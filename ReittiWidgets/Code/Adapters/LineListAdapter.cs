@@ -48,7 +48,7 @@ namespace ReittiWidgets.Code.Adapters
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            convertView = layoutInflater.Inflate(Resource.Layout.list_edit_line_layout, parent, false);
+            convertView = layoutInflater.Inflate(Resource.Layout.editline_list_line_item, parent, false);
             Line line = lineList[position];
 
             // Get elements
