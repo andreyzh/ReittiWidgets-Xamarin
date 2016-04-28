@@ -73,7 +73,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -102,5 +103,6 @@
         android:layout_height="wrap_content"
         android:text="@string/add_line"
         android:id="@+id/buttonAddline"
-        android:layout_below="@+id/versionLayout" />
+        android:layout_below="@+id/versionLayout"
+        android:layout_marginTop="10dp" />
 </RelativeLayout>
