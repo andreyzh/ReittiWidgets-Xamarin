@@ -1,17 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using System.Xml;
 using ReittiWidgets.Code.Data;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace ReittiWidgets.Code.Reittiopas
 {
@@ -23,7 +13,11 @@ namespace ReittiWidgets.Code.Reittiopas
     {
         private XmlDocument doc = new XmlDocument();
 
-        //TODO: Refactor?!
+        /// <summary>
+        /// Pareses stops from application internal XML file
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public List<Stop> ParseStops(string input)
         {
             List<Stop> stops = new List<Stop>();
@@ -50,6 +44,11 @@ namespace ReittiWidgets.Code.Reittiopas
             return stops; 
         }
 
+        /// <summary>
+        /// Extracts all lines in a given stop
+        /// </summary>
+        /// <param name="input">Reittiopas XML for a stop request</param>
+        /// <returns>List of line objects</returns>
         public List<Line> ParseLinesInStop(string input)
         {
             List<Line> lines = new List<Line>();
@@ -72,7 +71,9 @@ namespace ReittiWidgets.Code.Reittiopas
                     string number = match.Groups[2].Value;
                     string destination = match.Groups[3].Value;
 
-                    line.Number = number.Replace("0", "").Trim() + " " + destination;
+                    number = Regex.Replace(number, "^0+", "");
+
+                    line.Number = number.Trim() + " " + destination;
                     line.Code = type.Trim() + number.Trim();
 
                     lines.Add(line);
@@ -82,6 +83,12 @@ namespace ReittiWidgets.Code.Reittiopas
             return lines;
         }
 
+        /// <summary>
+        /// Extracts all departures for a given stop and its lines
+        /// </summary>
+        /// <param name="xmlData">Reittiopas XML for a stop request</param>
+        /// <param name="stops">List of stops with lines to populate departures</param>
+        /// <returns></returns>
         public List<Stop> ParseDepartureData(List<string> xmlData, List<Stop> stops)
         {
             foreach(string xml in xmlData)
