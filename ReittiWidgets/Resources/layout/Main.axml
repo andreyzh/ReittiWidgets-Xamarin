@@ -6,8 +6,7 @@
     android:paddingTop="0dp"
     android:paddingBottom="0dp"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#212121">
+    android:layout_height="fill_parent">
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

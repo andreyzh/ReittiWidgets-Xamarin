@@ -60,23 +60,20 @@ namespace ReittiWidgets
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f080005
-			public const int DividerGray500 = 2131230725;
+			// aapt resource value: 0x7f070004
+			public const int DividerGray500 = 2131165188;
 			
-			// aapt resource value: 0x7f080000
-			public const int ListBlue = 2131230720;
+			// aapt resource value: 0x7f070002
+			public const int TextGrey100 = 2131165186;
 			
-			// aapt resource value: 0x7f080001
-			public const int ListGreen = 2131230721;
+			// aapt resource value: 0x7f070003
+			public const int TextLighterGray = 2131165187;
 			
-			// aapt resource value: 0x7f080003
-			public const int TextGrey100 = 2131230723;
+			// aapt resource value: 0x7f070000
+			public const int action_bar = 2131165184;
 			
-			// aapt resource value: 0x7f080004
-			public const int TextLighterGray = 2131230724;
-			
-			// aapt resource value: 0x7f080002
-			public const int TextWhite = 2131230722;
+			// aapt resource value: 0x7f070001
+			public const int window_background = 2131165185;
 			
 			static Color()
 			{
@@ -303,86 +300,83 @@ namespace ReittiWidgets
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int ApplicationName = 2131034113;
-			
 			// aapt resource value: 0x7f050000
-			public const int Hello = 2131034112;
-			
-			// aapt resource value: 0x7f05000c
-			public const int action_add_line = 2131034124;
-			
-			// aapt resource value: 0x7f05000d
-			public const int action_settings = 2131034125;
-			
-			// aapt resource value: 0x7f050005
-			public const int add_line = 2131034117;
-			
-			// aapt resource value: 0x7f050019
-			public const int add_widget = 2131034137;
-			
-			// aapt resource value: 0x7f050002
-			public const int app_name = 2131034114;
-			
-			// aapt resource value: 0x7f050018
-			public const int appwidget_text = 2131034136;
-			
-			// aapt resource value: 0x7f05000e
-			public const int content_description_remove_line = 2131034126;
-			
-			// aapt resource value: 0x7f050014
-			public const int db_exists_toast = 2131034132;
-			
-			// aapt resource value: 0x7f050013
-			public const int db_updated_toast = 2131034131;
-			
-			// aapt resource value: 0x7f050015
-			public const int enter_stop_name = 2131034133;
-			
-			// aapt resource value: 0x7f050011
-			public const int no_connection = 2131034129;
-			
-			// aapt resource value: 0x7f050017
-			public const int no_time = 2131034135;
-			
-			// aapt resource value: 0x7f050016
-			public const int no_timetable_data = 2131034134;
-			
-			// aapt resource value: 0x7f050006
-			public const int show_versions = 2131034118;
-			
-			// aapt resource value: 0x7f050008
-			public const int show_versions_detail = 2131034120;
-			
-			// aapt resource value: 0x7f050007
-			public const int show_widget = 2131034119;
+			public const int ApplicationName = 2131034112;
 			
 			// aapt resource value: 0x7f05000b
-			public const int stop_code = 2131034123;
+			public const int action_add_line = 2131034123;
 			
-			// aapt resource value: 0x7f050012
-			public const int stop_deleted = 2131034130;
-			
-			// aapt resource value: 0x7f050010
-			public const int stops_context_delete = 2131034128;
-			
-			// aapt resource value: 0x7f05000f
-			public const int stops_context_edit = 2131034127;
-			
-			// aapt resource value: 0x7f050009
-			public const int time_delay = 2131034121;
-			
-			// aapt resource value: 0x7f05000a
-			public const int time_delay_detail = 2131034122;
-			
-			// aapt resource value: 0x7f050003
-			public const int title_activity_add_line = 2131034115;
+			// aapt resource value: 0x7f05000c
+			public const int action_settings = 2131034124;
 			
 			// aapt resource value: 0x7f050004
-			public const int title_activity_edit_stop = 2131034116;
+			public const int add_line = 2131034116;
 			
-			// aapt resource value: 0x7f05001a
-			public const int update_widget = 2131034138;
+			// aapt resource value: 0x7f050018
+			public const int add_widget = 2131034136;
+			
+			// aapt resource value: 0x7f050001
+			public const int app_name = 2131034113;
+			
+			// aapt resource value: 0x7f050017
+			public const int appwidget_text = 2131034135;
+			
+			// aapt resource value: 0x7f05000d
+			public const int content_description_remove_line = 2131034125;
+			
+			// aapt resource value: 0x7f050013
+			public const int db_exists_toast = 2131034131;
+			
+			// aapt resource value: 0x7f050012
+			public const int db_updated_toast = 2131034130;
+			
+			// aapt resource value: 0x7f050014
+			public const int enter_stop_name = 2131034132;
+			
+			// aapt resource value: 0x7f050010
+			public const int no_connection = 2131034128;
+			
+			// aapt resource value: 0x7f050016
+			public const int no_time = 2131034134;
+			
+			// aapt resource value: 0x7f050015
+			public const int no_timetable_data = 2131034133;
+			
+			// aapt resource value: 0x7f050005
+			public const int show_versions = 2131034117;
+			
+			// aapt resource value: 0x7f050007
+			public const int show_versions_detail = 2131034119;
+			
+			// aapt resource value: 0x7f050006
+			public const int show_widget = 2131034118;
+			
+			// aapt resource value: 0x7f05000a
+			public const int stop_code = 2131034122;
+			
+			// aapt resource value: 0x7f050011
+			public const int stop_deleted = 2131034129;
+			
+			// aapt resource value: 0x7f05000f
+			public const int stops_context_delete = 2131034127;
+			
+			// aapt resource value: 0x7f05000e
+			public const int stops_context_edit = 2131034126;
+			
+			// aapt resource value: 0x7f050008
+			public const int time_delay = 2131034120;
+			
+			// aapt resource value: 0x7f050009
+			public const int time_delay_detail = 2131034121;
+			
+			// aapt resource value: 0x7f050002
+			public const int title_activity_add_line = 2131034114;
+			
+			// aapt resource value: 0x7f050003
+			public const int title_activity_edit_stop = 2131034115;
+			
+			// aapt resource value: 0x7f050019
+			public const int update_widget = 2131034137;
 			
 			static String()
 			{
@@ -397,14 +391,14 @@ namespace ReittiWidgets
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f070002
-			public const int ActionBarTheme = 2131165186;
+			// aapt resource value: 0x7f080002
+			public const int ActionBar = 2131230722;
 			
-			// aapt resource value: 0x7f070000
-			public const int AppTheme = 2131165184;
+			// aapt resource value: 0x7f080001
+			public const int AppTheme = 2131230721;
 			
-			// aapt resource value: 0x7f070001
-			public const int Divider = 2131165185;
+			// aapt resource value: 0x7f080000
+			public const int Divider = 2131230720;
 			
 			static Style()
 			{

@@ -1,15 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <resources>
 
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
-    <item name="android:actionBarStyle">@style/ActionBarTheme</item>
-  </style>
-
   <!-- Colors -->
-  <color name="ListBlue">#0052CC</color>
-  <color name="ListGreen">#248F24</color>
-  <color name="TextWhite">#EBEBEB</color>
+  <color name="action_bar">#01579B</color>
+  <color name="window_background">#424242</color>
   <color name="TextGrey100">#F5F5F5</color>
   <color name="TextLighterGray">#616161</color>
   <color name="DividerGray500">#9E9E9E</color>
@@ -19,10 +13,6 @@
       <item name="android:layout_width">match_parent</item>
       <item name="android:layout_height">1dp</item>
       <item name="android:background">?android:attr/listDivider</item>
-  </style>
-
-  <style name="ActionBarTheme" parent="@android:style/Widget.Material.Light.ActionBar">
-    <item name="android:background">#0D47A1</item>
   </style>
 
 </resources>

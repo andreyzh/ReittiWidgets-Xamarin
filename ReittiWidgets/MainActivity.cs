@@ -1,22 +1,21 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
+using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.OS;
-using System.Collections.Generic;
-using ReittiWidgets.Code.Data;
 using ReittiWidgets.Code;
 using ReittiWidgets.Code.Activities;
+using ReittiWidgets.Code.Adapters;
+using ReittiWidgets.Code.Data;
 using ReittiWidgets.Code.Fragments;
 using ReittiWidgets.Code.Reittiopas;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using ReittiWidgets.Code.Adapters;
 
 namespace ReittiWidgets
 {
-    [Activity(Label = "Reitti Widgets", MainLauncher = true, Theme = "@android:style/Theme.Material.Light.DarkActionBar")]
+    [Activity(Label = "Reitti Widgets", MainLauncher = true, Theme = "@style/AppTheme")]
     public class MainActivity : Activity
     {
         // Views
@@ -93,13 +92,6 @@ namespace ReittiWidgets
                     break;
                 default:
                     break;
-            }
-
-            if(item.ItemId == Resource.Id.action_add_line)
-            {
-                Intent intent = new Intent(this, typeof(AddLineActivity));
-                StartActivityForResult(intent, REQUEST_DATABASE_UPDATE);
-                //StartActivity(typeof(AddLineActivity));
             }
             return base.OnOptionsItemSelected(item);
         }

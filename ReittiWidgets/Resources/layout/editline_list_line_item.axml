@@ -56,7 +56,7 @@
         android:id="@+id/showVariantsSwitch"
         android:layout_below="@+id/delayLayoutInner"
         android:layout_alignParentLeft="true"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp" />
 </RelativeLayout>
