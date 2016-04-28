@@ -23,7 +23,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:spinnerMode="dialog"
+        android:spinnerMode="dropdown"
         android:layout_below="@+id/inputStopName"
         android:paddingTop="5dp" />
     <LinearLayout
@@ -46,7 +46,8 @@
                 android:id="@+id/labelDelay"
                 android:paddingBottom="5dp"
                 android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/white" />
             <Spinner
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -61,7 +62,8 @@
             android:text="@string/time_delay_detail"
             android:id="@+id/labelDelayDetail"
             android:paddingTop="2dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:textColor="@color/secondary_text" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -81,7 +83,8 @@
                 android:text="@string/show_versions"
                 android:id="@+id/labelVersion"
                 android:layout_weight="1"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@android:color/white" />
             <CheckBox
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -96,7 +99,8 @@
             android:text="@string/show_versions_detail"
             android:id="@+id/labelVersionDetail"
             android:layout_marginRight="5dp"
-            android:paddingTop="2dp" />
+            android:paddingTop="2dp"
+            android:textColor="@color/secondary_text" />
     </LinearLayout>
     <Button
         android:layout_width="fill_parent"

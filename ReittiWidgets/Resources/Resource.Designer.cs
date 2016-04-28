@@ -60,17 +60,14 @@ namespace ReittiWidgets
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f070004
-			public const int DividerGray500 = 2131165188;
-			
-			// aapt resource value: 0x7f070002
-			public const int TextGrey100 = 2131165186;
-			
 			// aapt resource value: 0x7f070003
-			public const int TextLighterGray = 2131165187;
+			public const int DividerGray500 = 2131165187;
 			
 			// aapt resource value: 0x7f070000
 			public const int action_bar = 2131165184;
+			
+			// aapt resource value: 0x7f070002
+			public const int secondary_text = 2131165186;
 			
 			// aapt resource value: 0x7f070001
 			public const int window_background = 2131165185;

@@ -4,8 +4,7 @@
   <!-- Colors -->
   <color name="action_bar">#01579B</color>
   <color name="window_background">#424242</color>
-  <color name="TextGrey100">#F5F5F5</color>
-  <color name="TextLighterGray">#616161</color>
+  <color name="secondary_text">#F5F5F5</color>
   <color name="DividerGray500">#9E9E9E</color>
 
   <!-- Divider -->
