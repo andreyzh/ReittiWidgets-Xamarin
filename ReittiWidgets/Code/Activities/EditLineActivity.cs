@@ -36,7 +36,7 @@ namespace ReittiWidgets.Code.Activities
             stop = db.GetStop(stopCode);
 
             displayStopInWidget = (Switch)FindViewById(Resource.Id.displayStopInWidget);
-            //displayStopInWidget.setOnCheckedChangeListener(displayInWidgetListener);
+            displayStopInWidget.Click += updateStop;
             displayStopInWidget.Checked = stop.DisplayInWidget;
 
             // Set activity title
@@ -50,6 +50,17 @@ namespace ReittiWidgets.Code.Activities
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             return base.OnOptionsItemSelected(item);
+        }
+
+        private void updateStop(object sender, EventArgs e)
+        {
+            Switch sw = (Switch)sender;
+
+            if (stop.DisplayInWidget != sw.Checked)
+            {
+                stop.DisplayInWidget = sw.Checked;
+                db.UpdateStop(stop);
+            }
         }
     }
 }

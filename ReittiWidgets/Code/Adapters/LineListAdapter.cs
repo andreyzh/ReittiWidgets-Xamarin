@@ -1,27 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Java.Lang;
 using ReittiWidgets.Code.Data;
+using System;
+using System.Collections.Generic;
 
 namespace ReittiWidgets.Code.Adapters
 {
     class LineListAdapter : BaseAdapter
     {
-        // Note: stopList here is actually a reference on the stopList in Routes
-        private List<Line> lineList;
         private Context context;
-        private LayoutInflater layoutInflater;
         private Database db;
+        private LayoutInflater layoutInflater;
+        private List<Line> lineList;
 
+        // UI
         private Switch showVariantsSwitch;
         private ImageButton deleteLineImageButton;
         private Spinner delaySpinner;
@@ -81,11 +74,16 @@ namespace ReittiWidgets.Code.Adapters
             return convertView;
         }
 
+        /// <summary>
+        /// Removes item from view
+        /// </summary>
+        /// <param name="position">Position of the item in the list</param>
         public void RemoveItem(int position)
         {
             lineList.RemoveAt(position);
         }
 
+        // Deletes selected line
         private void deleteLine(object sender, EventArgs e)
         {
             View view = (View)sender;
@@ -97,6 +95,7 @@ namespace ReittiWidgets.Code.Adapters
             NotifyDataSetChanged();
         }
 
+        // Updates selected line
         private void updateLine(object sender, EventArgs e)
         {
             View view = (View)sender;
@@ -104,8 +103,34 @@ namespace ReittiWidgets.Code.Adapters
 
             Line line = lineList[position];
 
-            var asd = sender.GetType();
-            //TODO: work based on type
+            var type = sender.GetType();
+            
+            // Select action based on sender type
+            switch(type.FullName)
+            {
+                // Delay spinner changed
+                case "Android.Widget.Spinner":
+                    Spinner sp = (Spinner)sender;
+                    int delay = Convert.ToInt32(sp.SelectedItem.ToString());
+
+                    if (line.Delay != delay)
+                    {
+                        line.Delay = delay;
+                        db.UpdateLine(line);
+                    }
+                    break;
+                // Display all versions changed
+                case "Android.Widget.Switch":
+                    Switch sw = (Switch) sender;
+
+                    // Check if there's a mismatch between settings to avoid extra DB ops
+                    if (line.ShowVersions != sw.Checked)
+                    {
+                        line.ShowVersions = sw.Checked;
+                        db.UpdateLine(line);
+                    }
+                    break;
+            }
         }
     }
 }

@@ -71,6 +71,12 @@ namespace ReittiWidgets.Code.Data
             return i !=0 ? true : false;
         }
 
+        public bool UpdateStop(Stop stop)
+        {
+            int i = db.Update(stop);
+            return i != 0 ? true : false;
+        }
+
         public bool DeleteLine(Line line)
         {
             int id = 0;
