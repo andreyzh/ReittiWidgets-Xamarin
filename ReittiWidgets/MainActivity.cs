@@ -61,11 +61,19 @@ namespace ReittiWidgets
                 Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Long).Show();
         }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            if (adapter != null)
+                adapter.NotifyDataSetChanged();
+        }
+
         // Inflate menu
-        public override bool OnPrepareOptionsMenu(IMenu menu)
+        public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.MainMenu, menu);
-            return base.OnPrepareOptionsMenu(menu);
+            return true;
         }
 
         // Menu actions

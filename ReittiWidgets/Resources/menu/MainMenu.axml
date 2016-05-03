@@ -10,6 +10,6 @@
       android:id="@+id/action_refresh"
       android:showAsAction="ifRoom"
       android:icon="@drawable/ic_action_refresh"
-      android:title="@string/action_add_line">
+      android:title="@string/action_refresh">
   </item>
 </menu>
