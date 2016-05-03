@@ -10,6 +10,7 @@ using ReittiWidgets.Code.Adapters;
 using ReittiWidgets.Code.Data;
 using ReittiWidgets.Code.Fragments;
 using ReittiWidgets.Code.Reittiopas;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -50,15 +51,32 @@ namespace ReittiWidgets
             db.CreateAllTables();
             stops = db.GetStops();
 
-            // Fragment magic
+            // Set adapter
+            adapter = new StopListAdapter(this, stops);
+            stopListView.Adapter = adapter;
+
+            // Set fragment that stores and updates stops
             departuresFragment = (DeparturesFragment)FragmentManager.FindFragmentByTag(TAG_TASK_FRAGMENT);
 
             if (Utils.CheckConnectivity(this))
             {
-                populateStops();
+                if(departuresFragment == null)
+                {
+                    departuresFragment = new DeparturesFragment(this);
+                    FragmentManager.BeginTransaction().Add(departuresFragment, TAG_TASK_FRAGMENT).Commit();
+                }
+                departuresFragment.Stops = stops;
+                departuresFragment.PopulateStops();
+                departuresFragment.TimeTableUpdated += stopsUpdated;
+                //populateStops();
             }
             else
                 Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Long).Show();
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
         }
 
         protected override void OnResume()
@@ -104,6 +122,7 @@ namespace ReittiWidgets
             return base.OnOptionsItemSelected(item);
         }
 
+        // Trigger refresh after adding line
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
@@ -124,6 +143,7 @@ namespace ReittiWidgets
             }
         }
 
+        // Inflate action menu
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
         {
             base.OnCreateContextMenu(menu, v, menuInfo);
@@ -131,6 +151,7 @@ namespace ReittiWidgets
             MenuInflater.Inflate(Resource.Menu.stops_context, menu);
         }
 
+        // Handle stop deletion
         public override bool OnContextItemSelected(IMenuItem item)
         {
             AdapterView.AdapterContextMenuInfo adapterContextMenu = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
@@ -149,7 +170,7 @@ namespace ReittiWidgets
             }
         }
 
-        //TODO: deal with this magic
+        // Start edit line activity on stop click
         private void StopListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             Stop stop = (Stop)stopListView.GetItemAtPosition(e.Position);
@@ -197,6 +218,18 @@ namespace ReittiWidgets
 
             adapter = new StopListAdapter(this, stops);
             stopListView.Adapter = adapter;
+        }
+
+        private void stopsUpdated(object sender, EventArgs e)
+        {
+            if (progressDialog != null)
+            { 
+                progressDialog.Hide();
+                progressDialog.Dismiss();
+            }
+
+            stops = departuresFragment.Stops;
+            adapter.NotifyDataSetChanged();
         }
     }
 }
