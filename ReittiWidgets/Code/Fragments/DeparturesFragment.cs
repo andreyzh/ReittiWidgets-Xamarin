@@ -23,9 +23,9 @@ namespace ReittiWidgets.Code.Fragments
     /// </summary>
     class DeparturesFragment : Fragment
     {
-        public event EventHandler TimeTableUpdated;
+        public event EventHandler<DepartureFragmentEventArgs> TimeTableUpdated;
 
-        private Activity parentActivity;
+        private Database db = new Database();
         private List<Stop> stops;
 
         public List<Stop> Stops
@@ -33,6 +33,7 @@ namespace ReittiWidgets.Code.Fragments
             get { return stops; }
             set { stops = value; }
         }
+        public bool RequestDbUpdate { get; set; }
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -47,10 +48,10 @@ namespace ReittiWidgets.Code.Fragments
             base.OnAttach(activity);
         }
 
-        public async void PopulateStops()
+        public async void PopulateStops(bool updateDb = false)
         {
-            if(stops == null)
-                throw  new InvalidOperationException();
+            if (stops == null || updateDb)
+                stops = db.GetStops();
 
             // One task (thread) per each stop
             var tasks = new List<Task<string>>();
@@ -66,27 +67,27 @@ namespace ReittiWidgets.Code.Fragments
             // Contains set of XML files from RO
             List<string> resultXml = new List<string>(await Task.WhenAll(tasks));
 
-            //if (resultXml.Count == 0)
-            //    Toast.MakeText(this, Resource.String.no_timetable_data, ToastLength.Short).Show();
+            DepartureFragmentEventArgs args = new DepartureFragmentEventArgs();
+            if (resultXml.Count == 0)
+                args.NoData = true;
+            else
+                args.NoData = false;
 
             Parser parser = new Parser();
             stops = parser.ParseDepartureData(resultXml, stops);
 
             // Raise event that we're done here
-            onTimeTableUpdated(EventArgs.Empty);
-
-            //adapter = new StopListAdapter(this, stops);
-            //stopListView.Adapter = adapter;
+            onTimeTableUpdated(args);
         }
 
-        public DeparturesFragment(Activity activity)
-        {
-            parentActivity = activity;
-        }
-
-        protected void onTimeTableUpdated(EventArgs e)
+        protected void onTimeTableUpdated(DepartureFragmentEventArgs e)
         {
             TimeTableUpdated?.Invoke(this, e);
         }
+    }
+
+    public class DepartureFragmentEventArgs : EventArgs
+    {
+        public bool NoData { get; set; }
     }
 }

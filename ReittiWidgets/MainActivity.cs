@@ -19,19 +19,20 @@ namespace ReittiWidgets
     [Activity(Label = "Reitti Widgets", MainLauncher = true, Theme = "@style/AppTheme")]
     public class MainActivity : Activity
     {
-        // Views
+        #region Views
         private ListView stopListView;
         private ProgressDialog progressDialog;
+        #endregion
 
-        // Members
-        //protected FragmentManager fragmentManager;
+        #region Memebers
         private readonly int REQUEST_DATABASE_UPDATE = 1;
         private readonly string TAG_TASK_FRAGMENT = "task_fragment";
         private bool isConnected;
-        private List<Stop> stops;
+        //private List<Stop> stops;
         private Database db = new Database();
         private DeparturesFragment departuresFragment;
         private StopListAdapter adapter;
+        #endregion
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -48,12 +49,7 @@ namespace ReittiWidgets
             stopListView.ItemClick += StopListView_ItemClick;
 
             // Get stops from DB
-            db.CreateAllTables();
-            stops = db.GetStops();
-
-            // Set adapter
-            adapter = new StopListAdapter(this, stops);
-            stopListView.Adapter = adapter;
+            db.CreateAllTables();          
 
             // Set fragment that stores and updates stops
             departuresFragment = (DeparturesFragment)FragmentManager.FindFragmentByTag(TAG_TASK_FRAGMENT);
@@ -62,12 +58,16 @@ namespace ReittiWidgets
             {
                 if(departuresFragment == null)
                 {
-                    departuresFragment = new DeparturesFragment(this);
+                    departuresFragment = new DeparturesFragment();
+                    departuresFragment.TimeTableUpdated += Timetable_Updated;
                     FragmentManager.BeginTransaction().Add(departuresFragment, TAG_TASK_FRAGMENT).Commit();
+                    requestTimetableUpdate();
                 }
-                departuresFragment.Stops = stops;
-                departuresFragment.PopulateStops();
-                departuresFragment.TimeTableUpdated += stopsUpdated;
+                else
+                {
+                    adapter = new StopListAdapter(this, departuresFragment.Stops);
+                    stopListView.Adapter = adapter;
+                }
                 //populateStops();
             }
             else
@@ -85,6 +85,11 @@ namespace ReittiWidgets
 
             if (adapter != null)
                 adapter.NotifyDataSetChanged();
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
         }
 
         // Inflate menu
@@ -110,8 +115,7 @@ namespace ReittiWidgets
                 case Resource.Id.action_refresh:
                     if (Utils.CheckConnectivity(this))
                     {
-                        populateStops();
-                        adapter.NotifyDataSetChanged();
+                        requestTimetableUpdate();
                     }
                     else
                         Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Long).Show();
@@ -129,15 +133,12 @@ namespace ReittiWidgets
 
             if(resultCode == Result.Ok)
             {
-                if(requestCode == REQUEST_DATABASE_UPDATE && stops != null)
+                if(requestCode == REQUEST_DATABASE_UPDATE)
                 {
                     bool dbUpdated = data.GetBooleanExtra("dbUpdated", false);
                     if(dbUpdated)
                     {
-                        stops.Clear();
-                        stops = db.GetStops();
-                        populateStops();
-                        adapter.NotifyDataSetChanged(); // Redundant?
+                        requestTimetableUpdate();
                     }
                 }
             }
@@ -179,48 +180,20 @@ namespace ReittiWidgets
             StartActivity(intent);
         }
 
-        /// <summary>
-        /// This is a "super function" that
-        /// 1. Gets RO XML stop tables using async multi-thread task
-        /// 2. Parses departure information and puts it to the stops/lines
-        /// 3. Initalizes adapter to display everything
-        /// </summary>
-        private async void populateStops()
+        // Request timetable update
+        private void requestTimetableUpdate(bool updateDb = false)
         {
             // Show progress dialog
             if (progressDialog == null)
                 progressDialog = new ProgressDialog(this);
-            progressDialog.SetMessage("Loading, please wait");
+            progressDialog.SetMessage(Resources.GetString(Resource.String.loading));
             progressDialog.Show();
 
-            // One task (thread) per each stop
-            var tasks = new List<Task<string>>();
-
-            // Download XML files for each stop
-            foreach (Stop stop in stops)
-            {
-                Connector connector = new Connector();
-                connector.Url = RequestBuilder.getStopRequest(stop.Code);
-                tasks.Add(connector.GetXmlStringAsync());
-            }
-
-            // Contains set of XML files from RO
-            List<string> resultXml = new List<string>(await Task.WhenAll(tasks));
-
-            if(resultXml.Count == 0)
-                Toast.MakeText(this, Resource.String.no_timetable_data, ToastLength.Short).Show();
-
-            Parser parser = new Parser();
-            stops = parser.ParseDepartureData(resultXml, stops);
-
-            progressDialog.Hide();
-            progressDialog.Dismiss();
-
-            adapter = new StopListAdapter(this, stops);
-            stopListView.Adapter = adapter;
+            departuresFragment.PopulateStops(updateDb);
         }
 
-        private void stopsUpdated(object sender, EventArgs e)
+        // Process Departures Fragment event on timetable update
+        private void Timetable_Updated(object sender, DepartureFragmentEventArgs e)
         {
             if (progressDialog != null)
             { 
@@ -228,8 +201,15 @@ namespace ReittiWidgets
                 progressDialog.Dismiss();
             }
 
-            stops = departuresFragment.Stops;
-            adapter.NotifyDataSetChanged();
+            if (e.NoData)
+            { 
+                Toast.MakeText(this, Resource.String.no_timetable_data, ToastLength.Short).Show();
+                return;
+            }
+
+            // Update stops
+            adapter = new StopListAdapter(this, departuresFragment.Stops);
+            stopListView.Adapter = adapter;
         }
     }
 }
