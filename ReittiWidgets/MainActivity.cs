@@ -68,7 +68,6 @@ namespace ReittiWidgets
                     adapter = new StopListAdapter(this, departuresFragment.Stops);
                     stopListView.Adapter = adapter;
                 }
-                //populateStops();
             }
             else
                 Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Long).Show();
@@ -85,6 +84,18 @@ namespace ReittiWidgets
 
             if (adapter != null)
                 adapter.NotifyDataSetChanged();
+        }
+
+        protected override void OnRestart()
+        {
+            base.OnRestart();
+
+            adapter.NotifyDataSetInvalidated();
+
+            if(departuresFragment != null)
+            {
+                requestTimetableUpdate();
+            }
         }
 
         protected override void OnStop()
