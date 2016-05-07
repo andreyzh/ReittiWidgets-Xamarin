@@ -284,6 +284,9 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f090001
 			public const int stops_context = 2131296257;
 			
+			// aapt resource value: 0x7f090002
+			public const int stops_select_menu = 2131296258;
+			
 			static Menu()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

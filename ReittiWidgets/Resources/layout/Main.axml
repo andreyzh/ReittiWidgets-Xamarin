@@ -14,5 +14,7 @@
         android:dividerHeight="1dp"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
-        android:divider="@color/DividerGray500" />
+        android:divider="@color/DividerGray500"
+        android:longClickable="true"
+        android:choiceMode="multipleChoiceModal" />
 </LinearLayout>

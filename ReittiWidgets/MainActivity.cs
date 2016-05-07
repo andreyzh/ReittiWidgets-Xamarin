@@ -45,8 +45,10 @@ namespace ReittiWidgets
             isConnected = Utils.CheckConnectivity(this);
 
             stopListView = FindViewById<ListView>(Resource.Id.stopsListView);
-            RegisterForContextMenu(stopListView);
+            //RegisterForContextMenu(stopListView);
             stopListView.ItemClick += StopListView_ItemClick;
+            //stopListView.ItemLongClick += StopListView_ItemLongClick;
+            stopListView.SetMultiChoiceModeListener(new StopListMultChoiceHandler(this));
 
             // Get stops from DB
             db.CreateAllTables();          
@@ -191,6 +193,12 @@ namespace ReittiWidgets
             StartActivity(intent);
         }
 
+        // Select stop on long click ** May not be needed **
+        private void StopListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            Toast.MakeText(this, Resources.GetString(Resource.String.stop_deleted), ToastLength.Long).Show();
+        }
+
         // Request timetable update
         private void requestTimetableUpdate(bool updateDb = false)
         {
@@ -221,6 +229,46 @@ namespace ReittiWidgets
             // Update stops
             adapter = new StopListAdapter(this, departuresFragment.Stops);
             stopListView.Adapter = adapter;
+        }
+    }
+
+    class StopListMultChoiceHandler : Java.Lang.Object, ListView.IMultiChoiceModeListener
+    {
+
+        Activity self;
+
+        public StopListMultChoiceHandler(Activity activity)
+        {
+            self = activity;
+        }
+
+        public bool OnActionItemClicked(ActionMode mode, IMenuItem item)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Actions on items selected
+        public bool OnCreateActionMode(ActionMode mode, IMenu menu)
+        {
+            self.MenuInflater.Inflate(Resource.Menu.stops_select_menu, menu);
+            mode.Title = "Hello World";
+            //SetSubtitle(mode);
+            return true;
+        }
+
+        public void OnDestroyActionMode(ActionMode mode)
+        {
+            
+        }
+
+        public void OnItemCheckedStateChanged(ActionMode mode, int position, long id, bool @checked)
+        {
+            
+        }
+
+        public bool OnPrepareActionMode(ActionMode mode, IMenu menu)
+        {
+            return true;
         }
     }
 }
