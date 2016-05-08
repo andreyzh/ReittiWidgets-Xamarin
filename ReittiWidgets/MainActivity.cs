@@ -92,7 +92,8 @@ namespace ReittiWidgets
         {
             base.OnRestart();
 
-            adapter.NotifyDataSetInvalidated();
+            if(adapter != null)
+                adapter.NotifyDataSetInvalidated();
 
             if(departuresFragment != null)
             {
@@ -201,12 +202,6 @@ namespace ReittiWidgets
             StartActivity(intent);
         }
 
-        // Select stop on long click ** May not be needed **
-        private void StopListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
-        {
-            Toast.MakeText(this, Resources.GetString(Resource.String.stop_deleted), ToastLength.Long).Show();
-        }
-
         // Request timetable update
         private void requestTimetableUpdate(bool updateDb = false)
         {
@@ -259,7 +254,7 @@ namespace ReittiWidgets
         public bool OnCreateActionMode(ActionMode mode, IMenu menu)
         {
             self.MenuInflater.Inflate(Resource.Menu.stops_select_menu, menu);
-            mode.Title = "Hello World";
+            mode.Title = "x " + self.Resources.GetString(Resource.String.action_desciption_stops_selected);
             //SetSubtitle(mode);
             return true;
         }
