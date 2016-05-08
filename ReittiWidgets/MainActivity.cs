@@ -128,7 +128,15 @@ namespace ReittiWidgets
                 case Resource.Id.action_refresh:
                     if (Utils.CheckConnectivity(this))
                     {
-                        requestTimetableUpdate();
+                        if(departuresFragment != null)
+                            requestTimetableUpdate();
+                        else
+                        {
+                            departuresFragment = new DeparturesFragment();
+                            departuresFragment.TimeTableUpdated += Timetable_Updated;
+                            FragmentManager.BeginTransaction().Add(departuresFragment, TAG_TASK_FRAGMENT).Commit();
+                            requestTimetableUpdate();
+                        }
                     }
                     else
                         Toast.MakeText(this, Resources.GetString(Resource.String.no_connection), ToastLength.Long).Show();
@@ -151,7 +159,7 @@ namespace ReittiWidgets
                     bool dbUpdated = data.GetBooleanExtra("dbUpdated", false);
                     if(dbUpdated)
                     {
-                        requestTimetableUpdate();
+                        requestTimetableUpdate(true);
                     }
                 }
             }

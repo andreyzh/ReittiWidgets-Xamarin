@@ -50,8 +50,13 @@ namespace ReittiWidgets.Code.Fragments
 
         public async void PopulateStops(bool updateDb = false)
         {
-            if (stops == null || updateDb)
+            if (stops == null)
                 stops = db.GetStops();
+            if(updateDb)
+            {
+                stops.Clear();
+                stops = db.GetStops();
+            }
 
             // One task (thread) per each stop
             var tasks = new List<Task<string>>();
