@@ -71,11 +71,12 @@ namespace ReittiWidgets.Code.Reittiopas
                     string number = match.Groups[2].Value;
                     string destination = match.Groups[3].Value;
 
+                    line.Code = type.Trim() + number.Trim();
+
                     number = Regex.Replace(number, "^0+", "");
 
                     line.Number = number.Trim() + " " + destination;
-                    line.Code = type.Trim() + number.Trim();
-
+                    
                     lines.Add(line);
                 }
             }
@@ -129,3 +130,16 @@ namespace ReittiWidgets.Code.Reittiopas
         }
     }
 }
+
+/* Examples
+ * Buses:
+ * 2150K 2:Kamppi, laituri 5
+ * 2165N 2:Kamppi, laituri 54
+ * 2165 2:Kamppi, laituri 54
+ * 2065K 2:Espoonlahti
+ * 
+ * Trams:
+ * 1003 1:Nordenskiöldinkatu
+ * 1002 1:Nordenskiöldinkatu<
+ * 1007A 1:Pasila
+ */
