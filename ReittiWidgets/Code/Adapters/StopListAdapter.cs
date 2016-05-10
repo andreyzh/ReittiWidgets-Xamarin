@@ -44,6 +44,11 @@ namespace ReittiWidgets.Code.Adapters
             stopList.RemoveAt(position);
         }
 
+        public void RemoveItem(Stop stop)
+        {
+            stopList.Remove(stop);
+        }
+
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             convertView = layoutInflater.Inflate(Resource.Layout.main_list_stop_item, parent, false);

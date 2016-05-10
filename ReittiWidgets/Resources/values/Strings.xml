@@ -20,6 +20,7 @@
   <string name="action_delete">Delete</string>
   <string name="action_settings">Settings</string>
   <string name="content_description_remove_line">Remove line</string>
+  <string name="action_desciption_select_stops">Select stops</string>
   <string name="action_desciption_stops_selected">stops selected</string>
   
   <!-- Context menu -->

@@ -25,13 +25,13 @@ namespace ReittiWidgets
         #endregion
 
         #region Memebers
+        internal Database db = new Database();
+        internal StopListAdapter adapter;
         private readonly int REQUEST_DATABASE_UPDATE = 1;
         private readonly string TAG_TASK_FRAGMENT = "task_fragment";
         private bool isConnected;
-        //private List<Stop> stops;
-        private Database db = new Database();
         private DeparturesFragment departuresFragment;
-        private StopListAdapter adapter;
+        
         #endregion
 
         protected override void OnCreate(Bundle bundle)
@@ -235,38 +235,69 @@ namespace ReittiWidgets
         }
     }
 
+    /// <summary>
+    /// Handles stop deletion in stop list via action bar
+    /// </summary>
     class StopListMultChoiceHandler : Java.Lang.Object, ListView.IMultiChoiceModeListener
     {
+        MainActivity parent;
+        Dictionary<int, Stop> stopsToDelete = new Dictionary<int, Stop>();
 
-        Activity self;
-
-        public StopListMultChoiceHandler(Activity activity)
+        public StopListMultChoiceHandler(MainActivity activity)
         {
-            self = activity;
+            parent = activity;
         }
 
+        // Remove selected stops
         public bool OnActionItemClicked(ActionMode mode, IMenuItem item)
         {
-            throw new NotImplementedException();
+            if (stopsToDelete.Count > 0)
+            {
+                foreach (Stop stop in stopsToDelete.Values)
+                {
+                    parent.db.DeleteStop(stop);
+                    parent.adapter.RemoveItem(stop);
+                }
+
+                parent.adapter.NotifyDataSetChanged();
+
+                Toast.MakeText(parent, parent.Resources.GetString(Resource.String.stop_deleted), ToastLength.Long).Show();
+
+                mode.Finish();
+
+                return true;
+            }
+            else
+                return false;
         }
 
         // Actions on items selected
         public bool OnCreateActionMode(ActionMode mode, IMenu menu)
         {
-            self.MenuInflater.Inflate(Resource.Menu.stops_select_menu, menu);
-            mode.Title = "x " + self.Resources.GetString(Resource.String.action_desciption_stops_selected);
-            //SetSubtitle(mode);
+            parent.MenuInflater.Inflate(Resource.Menu.stops_select_menu, menu);
+            mode.Title = parent.Resources.GetString(Resource.String.action_desciption_select_stops);
             return true;
         }
 
         public void OnDestroyActionMode(ActionMode mode)
         {
-            
+            stopsToDelete.Clear();
         }
 
         public void OnItemCheckedStateChanged(ActionMode mode, int position, long id, bool @checked)
         {
-            
+            // Select stops to add or remove
+            if(@checked)
+            {
+                Stop stop = (Stop)parent.adapter.GetItem(position);
+                stopsToDelete.Add(position, stop);
+            }
+            else
+            {
+                stopsToDelete.Remove(position);
+            }
+
+            mode.Title = stopsToDelete.Count.ToString() + " " + parent.Resources.GetString(Resource.String.action_desciption_stops_selected);
         }
 
         public bool OnPrepareActionMode(ActionMode mode, IMenu menu)
