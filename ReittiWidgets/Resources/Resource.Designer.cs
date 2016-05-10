@@ -60,17 +60,23 @@ namespace ReittiWidgets
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f070003
-			public const int DividerGray500 = 2131165187;
+			// aapt resource value: 0x7f070004
+			public const int DividerGray500 = 2131165188;
+			
+			// aapt resource value: 0x7f070005
+			public const int SelectedItem = 2131165189;
 			
 			// aapt resource value: 0x7f070000
 			public const int action_bar = 2131165184;
 			
-			// aapt resource value: 0x7f070002
-			public const int secondary_text = 2131165186;
-			
 			// aapt resource value: 0x7f070001
-			public const int window_background = 2131165185;
+			public const int context_action_bar = 2131165185;
+			
+			// aapt resource value: 0x7f070003
+			public const int secondary_text = 2131165187;
+			
+			// aapt resource value: 0x7f070002
+			public const int window_background = 2131165186;
 			
 			static Color()
 			{
@@ -124,6 +130,9 @@ namespace ReittiWidgets
 			
 			// aapt resource value: 0x7f020005
 			public const int ic_main = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int selected_item = 2130837510;
 			
 			static Drawable()
 			{
@@ -414,6 +423,9 @@ namespace ReittiWidgets
 			
 			// aapt resource value: 0x7f080001
 			public const int AppTheme = 2131230721;
+			
+			// aapt resource value: 0x7f080003
+			public const int ContextActionBar = 2131230723;
 			
 			// aapt resource value: 0x7f080000
 			public const int Divider = 2131230720;

@@ -3,9 +3,11 @@
 
   <!-- Colors -->
   <color name="action_bar">#01579B</color>
+  <color name="context_action_bar">#0288D1</color>
   <color name="window_background">#424242</color>
   <color name="secondary_text">#F5F5F5</color>
   <color name="DividerGray500">#9E9E9E</color>
+  <color name="SelectedItem">#616161</color>
 
   <!-- Divider -->
   <style name="Divider">
