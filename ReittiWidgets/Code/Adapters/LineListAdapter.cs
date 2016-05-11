@@ -2,7 +2,6 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using ReittiWidgets.Code.Data;
-using System;
 using System.Collections.Generic;
 
 namespace ReittiWidgets.Code.Adapters
@@ -92,7 +91,7 @@ namespace ReittiWidgets.Code.Adapters
         }
 
         // Updates selected line
-        private void updateLine(object sender, EventArgs e)
+        private void updateLine(object sender, System.EventArgs e)
         {
             View view = (View)sender;
             int position = (int)view.Tag;
@@ -107,7 +106,7 @@ namespace ReittiWidgets.Code.Adapters
                 // Delay spinner changed
                 case "Android.Widget.Spinner":
                     Spinner sp = (Spinner)sender;
-                    int delay = Convert.ToInt32(sp.SelectedItem.ToString());
+                    int delay = System.Convert.ToInt32(sp.SelectedItem.ToString());
 
                     if (line.Delay != delay)
                     {

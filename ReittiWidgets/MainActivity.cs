@@ -9,10 +9,7 @@ using ReittiWidgets.Code.Activities;
 using ReittiWidgets.Code.Adapters;
 using ReittiWidgets.Code.Data;
 using ReittiWidgets.Code.Fragments;
-using ReittiWidgets.Code.Reittiopas;
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ReittiWidgets
 {
