@@ -5,12 +5,19 @@
     android:layout_height="match_parent"
     android:id="@+id/lineLayout"
     android:paddingBottom="5dp"
-    android:paddingTop="5dp">
+    android:paddingTop="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:background="@drawable/selected_item"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/controlLayout">
+        android:id="@+id/controlLayout"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -18,15 +25,11 @@
             android:id="@+id/labelLineName"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="0dp"
+            android:paddingBottom="5dp"
             android:layout_weight="1"
-            android:textStyle="bold" />
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButtonDeleteLine"
-            android:src="@drawable/ic_action_discard"
-            android:contentDescription="@string/content_description_remove_line"
-            android:background="#00ffffff" />
+            android:textStyle="bold"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -34,20 +37,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/controlLayout"
         android:id="@+id/delayLayoutInner"
-        android:paddingTop="5dp">
+        android:paddingTop="5dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/time_delay"
             android:id="@+id/textView2"
             android:paddingBottom="5dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColor="@color/White" />
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/delaySpinnerEdit"
-            android:entries="@array/spinner_delay_values" />
+            android:entries="@array/spinner_delay_values"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
     </LinearLayout>
     <Switch
         android:layout_width="fill_parent"
@@ -58,5 +67,7 @@
         android:layout_alignParentLeft="true"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
 </RelativeLayout>

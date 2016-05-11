@@ -8,6 +8,8 @@
   <color name="secondary_text">#F5F5F5</color>
   <color name="DividerGray500">#9E9E9E</color>
   <color name="SelectedItem">#616161</color>
+  <color name="Highlight">#757575</color>
+  <color name="White">#FFFFFF</color>
 
   <!-- Divider -->
   <style name="Divider">

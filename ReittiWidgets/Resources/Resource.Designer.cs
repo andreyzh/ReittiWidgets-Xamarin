@@ -63,8 +63,14 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f070004
 			public const int DividerGray500 = 2131165188;
 			
+			// aapt resource value: 0x7f070006
+			public const int Highlight = 2131165190;
+			
 			// aapt resource value: 0x7f070005
 			public const int SelectedItem = 2131165189;
+			
+			// aapt resource value: 0x7f070007
+			public const int White = 2131165191;
 			
 			// aapt resource value: 0x7f070000
 			public const int action_bar = 2131165184;
@@ -147,14 +153,14 @@ namespace ReittiWidgets
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f0a001b
+			public const int action_add_line = 2131361819;
+			
+			// aapt resource value: 0x7f0a001e
+			public const int action_delete_stop = 2131361822;
+			
 			// aapt resource value: 0x7f0a001c
-			public const int action_add_line = 2131361820;
-			
-			// aapt resource value: 0x7f0a001f
-			public const int action_delete_stop = 2131361823;
-			
-			// aapt resource value: 0x7f0a001d
-			public const int action_refresh = 2131361821;
+			public const int action_refresh = 2131361820;
 			
 			// aapt resource value: 0x7f0a000b
 			public const int buttonAddline = 2131361803;
@@ -171,17 +177,14 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f0a0003
 			public const int delayLayoutInner = 2131361795;
 			
-			// aapt resource value: 0x7f0a0015
-			public const int delaySpinnerEdit = 2131361813;
+			// aapt resource value: 0x7f0a0014
+			public const int delaySpinnerEdit = 2131361812;
 			
-			// aapt resource value: 0x7f0a001e
-			public const int deleteStop = 2131361822;
+			// aapt resource value: 0x7f0a001d
+			public const int deleteStop = 2131361821;
 			
 			// aapt resource value: 0x7f0a000d
 			public const int displayStopInWidget = 2131361805;
-			
-			// aapt resource value: 0x7f0a0013
-			public const int imageButtonDeleteLine = 2131361811;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int inputStopName = 2131361792;
@@ -192,14 +195,14 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f0a0006
 			public const int labelDelayDetail = 2131361798;
 			
-			// aapt resource value: 0x7f0a0019
-			public const int labelFollowingDeparture = 2131361817;
+			// aapt resource value: 0x7f0a0018
+			public const int labelFollowingDeparture = 2131361816;
 			
 			// aapt resource value: 0x7f0a0012
 			public const int labelLineName = 2131361810;
 			
-			// aapt resource value: 0x7f0a0018
-			public const int labelNextDeparture = 2131361816;
+			// aapt resource value: 0x7f0a0017
+			public const int labelNextDeparture = 2131361815;
 			
 			// aapt resource value: 0x7f0a0008
 			public const int labelVersion = 2131361800;
@@ -216,8 +219,8 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f0a000e
 			public const int separator = 2131361806;
 			
-			// aapt resource value: 0x7f0a0016
-			public const int showVariantsSwitch = 2131361814;
+			// aapt resource value: 0x7f0a0015
+			public const int showVariantsSwitch = 2131361813;
 			
 			// aapt resource value: 0x7f0a0001
 			public const int spinner = 2131361793;
@@ -225,20 +228,20 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f0a0005
 			public const int spinner2 = 2131361797;
 			
+			// aapt resource value: 0x7f0a0019
+			public const int stopLayout = 2131361817;
+			
 			// aapt resource value: 0x7f0a001a
-			public const int stopLayout = 2131361818;
+			public const int stopNameTextView = 2131361818;
 			
-			// aapt resource value: 0x7f0a001b
-			public const int stopNameTextView = 2131361819;
-			
-			// aapt resource value: 0x7f0a0017
-			public const int stopsListView = 2131361815;
+			// aapt resource value: 0x7f0a0016
+			public const int stopsListView = 2131361814;
 			
 			// aapt resource value: 0x7f0a000c
 			public const int textView = 2131361804;
 			
-			// aapt resource value: 0x7f0a0014
-			public const int textView2 = 2131361812;
+			// aapt resource value: 0x7f0a0013
+			public const int textView2 = 2131361811;
 			
 			// aapt resource value: 0x7f0a0007
 			public const int versionLayout = 2131361799;
@@ -321,6 +324,12 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f05000d
 			public const int action_delete = 2131034125;
 			
+			// aapt resource value: 0x7f050013
+			public const int action_desciption_lines_selected = 2131034131;
+			
+			// aapt resource value: 0x7f050012
+			public const int action_desciption_select_lines = 2131034130;
+			
 			// aapt resource value: 0x7f050010
 			public const int action_desciption_select_stops = 2131034128;
 			
@@ -336,38 +345,41 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f050004
 			public const int add_line = 2131034116;
 			
-			// aapt resource value: 0x7f05001d
-			public const int add_widget = 2131034141;
+			// aapt resource value: 0x7f050020
+			public const int add_widget = 2131034144;
 			
 			// aapt resource value: 0x7f050001
 			public const int app_name = 2131034113;
 			
-			// aapt resource value: 0x7f05001c
-			public const int appwidget_text = 2131034140;
+			// aapt resource value: 0x7f05001f
+			public const int appwidget_text = 2131034143;
 			
 			// aapt resource value: 0x7f05000f
 			public const int content_description_remove_line = 2131034127;
 			
-			// aapt resource value: 0x7f050018
-			public const int db_exists_toast = 2131034136;
-			
-			// aapt resource value: 0x7f050017
-			public const int db_updated_toast = 2131034135;
-			
-			// aapt resource value: 0x7f050019
-			public const int enter_stop_name = 2131034137;
-			
-			// aapt resource value: 0x7f050014
-			public const int loading = 2131034132;
-			
-			// aapt resource value: 0x7f050015
-			public const int no_connection = 2131034133;
-			
 			// aapt resource value: 0x7f05001b
-			public const int no_time = 2131034139;
+			public const int db_exists_toast = 2131034139;
 			
 			// aapt resource value: 0x7f05001a
-			public const int no_timetable_data = 2131034138;
+			public const int db_updated_toast = 2131034138;
+			
+			// aapt resource value: 0x7f05001c
+			public const int enter_stop_name = 2131034140;
+			
+			// aapt resource value: 0x7f050019
+			public const int line_deleted = 2131034137;
+			
+			// aapt resource value: 0x7f050016
+			public const int loading = 2131034134;
+			
+			// aapt resource value: 0x7f050017
+			public const int no_connection = 2131034135;
+			
+			// aapt resource value: 0x7f05001e
+			public const int no_time = 2131034142;
+			
+			// aapt resource value: 0x7f05001d
+			public const int no_timetable_data = 2131034141;
 			
 			// aapt resource value: 0x7f050005
 			public const int show_versions = 2131034117;
@@ -381,14 +393,14 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f05000a
 			public const int stop_code = 2131034122;
 			
-			// aapt resource value: 0x7f050016
-			public const int stop_deleted = 2131034134;
+			// aapt resource value: 0x7f050018
+			public const int stop_deleted = 2131034136;
 			
-			// aapt resource value: 0x7f050013
-			public const int stops_context_delete = 2131034131;
+			// aapt resource value: 0x7f050015
+			public const int stops_context_delete = 2131034133;
 			
-			// aapt resource value: 0x7f050012
-			public const int stops_context_edit = 2131034130;
+			// aapt resource value: 0x7f050014
+			public const int stops_context_edit = 2131034132;
 			
 			// aapt resource value: 0x7f050008
 			public const int time_delay = 2131034120;
@@ -402,8 +414,8 @@ namespace ReittiWidgets
 			// aapt resource value: 0x7f050003
 			public const int title_activity_edit_stop = 2131034115;
 			
-			// aapt resource value: 0x7f05001e
-			public const int update_widget = 2131034142;
+			// aapt resource value: 0x7f050021
+			public const int update_widget = 2131034145;
 			
 			static String()
 			{

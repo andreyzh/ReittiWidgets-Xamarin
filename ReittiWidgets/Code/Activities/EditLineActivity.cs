@@ -17,11 +17,10 @@ namespace ReittiWidgets.Code.Activities
     [Activity(Label = "@string/title_activity_edit_stop",  Theme = "@style/AppTheme")]
     class EditLineActivity : Activity
     {
-        protected LineListAdapter adapter;
-
-        private Database db;
+        internal LineListAdapter adapter;
+        internal Database db;
+        
         private Stop stop;
-
         private Switch displayStopInWidget;
         private ListView lineListView;
 
@@ -43,6 +42,8 @@ namespace ReittiWidgets.Code.Activities
             Title = this.Resources.GetString(Resource.String.title_activity_edit_stop) + " " + stop.Name;
 
             lineListView = (ListView)FindViewById(Resource.Id.linesListView);
+            lineListView.ItemClick += Clicked;
+            lineListView.SetMultiChoiceModeListener(new LineListMultChoiceHandler(this));
             adapter = new LineListAdapter(this, stop.Lines);
             lineListView.Adapter = adapter;
         }
@@ -61,6 +62,83 @@ namespace ReittiWidgets.Code.Activities
                 stop.DisplayInWidget = sw.Checked;
                 db.UpdateStop(stop);
             }
+        }
+
+
+        private void Clicked(object o, EventArgs e)
+        {
+            Toast.MakeText(this, "Hello world", ToastLength.Long);
+        }
+    }
+
+    /// <summary>
+    /// Handles line deletion in line list via action bar
+    /// </summary>
+    class LineListMultChoiceHandler : Java.Lang.Object, ListView.IMultiChoiceModeListener
+    {
+        EditLineActivity parent;
+        Dictionary<int, Line> linesToDelete = new Dictionary<int, Line>();
+
+        public LineListMultChoiceHandler(EditLineActivity activity)
+        {
+            parent = activity;
+        }
+
+        // Remove selected stops
+        public bool OnActionItemClicked(ActionMode mode, IMenuItem item)
+        {
+            if (linesToDelete.Count > 0)
+            {
+                foreach (Line line in linesToDelete.Values)
+                {
+                    parent.db.DeleteLine(line);
+                    parent.adapter.RemoveItem(line);
+                }
+
+                parent.adapter.NotifyDataSetChanged();
+
+                Toast.MakeText(parent, parent.Resources.GetString(Resource.String.line_deleted), ToastLength.Long).Show();
+
+                mode.Finish();
+
+                return true;
+            }
+            else
+                return false;
+        }
+
+        // Actions on items selected
+        public bool OnCreateActionMode(ActionMode mode, IMenu menu)
+        {
+            parent.MenuInflater.Inflate(Resource.Menu.stops_select_menu, menu);
+            mode.Title = parent.Resources.GetString(Resource.String.action_desciption_select_lines);
+            return true;
+        }
+
+        public void OnDestroyActionMode(ActionMode mode)
+        {
+            linesToDelete.Clear();
+        }
+
+        public void OnItemCheckedStateChanged(ActionMode mode, int position, long id, bool @checked)
+        {
+            // Select stops to add or remove
+            if (@checked)
+            {
+                Line line = (Line)parent.adapter.GetItem(position);
+                linesToDelete.Add(position, line);
+            }
+            else
+            {
+                linesToDelete.Remove(position);
+            }
+
+            mode.Title = linesToDelete.Count.ToString() + " " + parent.Resources.GetString(Resource.String.action_desciption_lines_selected);
+        }
+
+        public bool OnPrepareActionMode(ActionMode mode, IMenu menu)
+        {
+            return true;
         }
     }
 }

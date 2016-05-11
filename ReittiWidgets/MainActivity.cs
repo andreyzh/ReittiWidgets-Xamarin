@@ -45,9 +45,7 @@ namespace ReittiWidgets
             isConnected = Utils.CheckConnectivity(this);
 
             stopListView = FindViewById<ListView>(Resource.Id.stopsListView);
-            //RegisterForContextMenu(stopListView);
             stopListView.ItemClick += StopListView_ItemClick;
-            //stopListView.ItemLongClick += StopListView_ItemLongClick;
             stopListView.SetMultiChoiceModeListener(new StopListMultChoiceHandler(this));
 
             // Get stops from DB

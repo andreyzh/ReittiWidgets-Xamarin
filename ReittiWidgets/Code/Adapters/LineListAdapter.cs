@@ -43,7 +43,9 @@ namespace ReittiWidgets.Code.Adapters
         public override long GetItemId(int position)
         {
             Line line = lineList[position];
-            return Convert.ToInt32(line.Code);
+            // This is bugged with line codes containing letter
+            //return Convert.ToInt32(line.Code);
+            return 0;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -54,17 +56,18 @@ namespace ReittiWidgets.Code.Adapters
             // Get elements
             showVariantsSwitch = (Switch)convertView.FindViewById(Resource.Id.showVariantsSwitch);
             delaySpinner = (Spinner)convertView.FindViewById(Resource.Id.delaySpinnerEdit);
-            deleteLineImageButton = (ImageButton)convertView.FindViewById(Resource.Id.imageButtonDeleteLine);
+
+            // Remove focus on all clickable items
+            showVariantsSwitch.Focusable = false;
+            delaySpinner.Focusable = false;
 
             // Add change/click listeners
-            deleteLineImageButton.Click += deleteLine;
             showVariantsSwitch.CheckedChange += updateLine;
             delaySpinner.ItemSelected += updateLine;
 
             // Set position tags for the elements
             // so that we know which view was selected
             showVariantsSwitch.Tag = position;
-            deleteLineImageButton.Tag = position;
             delaySpinner.Tag = position;
 
             ((TextView)convertView.FindViewById(Resource.Id.labelLineName)).Text = line.Number;
@@ -83,16 +86,9 @@ namespace ReittiWidgets.Code.Adapters
             lineList.RemoveAt(position);
         }
 
-        // Deletes selected line
-        private void deleteLine(object sender, EventArgs e)
+        public void RemoveItem(Line line)
         {
-            View view = (View)sender;
-            int position = (int)view.Tag;
-
-            Line line = lineList[position];
-            db.DeleteLine(line);
-            RemoveItem(position);
-            NotifyDataSetChanged();
+            lineList.Remove(line);
         }
 
         // Updates selected line

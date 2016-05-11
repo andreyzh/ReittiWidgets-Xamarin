@@ -22,6 +22,8 @@
   <string name="content_description_remove_line">Remove line</string>
   <string name="action_desciption_select_stops">Select stops</string>
   <string name="action_desciption_stops_selected">stops selected</string>
+  <string name="action_desciption_select_lines">Select lines</string>
+  <string name="action_desciption_lines_selected">lines selected</string>
   
   <!-- Context menu -->
   <string name="stops_context_edit">Edit</string>
@@ -30,6 +32,7 @@
   <string name="loading">Loading, please wait</string>
   <string name="no_connection">No network connection</string>
   <string name="stop_deleted">Stop deleted</string>
+  <string name="line_deleted">Line deleted</string>
   <string name="db_updated_toast">Line successfully added</string>
   <string name="db_exists_toast">Line already exists</string>
   <string name="enter_stop_name">Please enter stop name</string>
