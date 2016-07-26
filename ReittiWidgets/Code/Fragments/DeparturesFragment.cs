@@ -87,10 +87,13 @@ namespace ReittiWidgets.Code.Fragments
 
         protected void onTimeTableUpdated(DepartureFragmentEventArgs e)
         {
-            TimeTableUpdated?.Invoke(this, e);
+            TimeTableUpdated.Invoke(this, e);
         }
     }
 
+    /// <summary>
+    /// Used to send message to activity that we cannot find anything as the operation is async
+    /// </summary>
     public class DepartureFragmentEventArgs : EventArgs
     {
         public bool NoData { get; set; }

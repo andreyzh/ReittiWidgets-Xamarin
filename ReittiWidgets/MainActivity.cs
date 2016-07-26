@@ -53,6 +53,7 @@ namespace ReittiWidgets
 
             if (Utils.CheckConnectivity(this))
             {
+                // Activity first start, fragment not created
                 if(departuresFragment == null)
                 {
                     departuresFragment = new DeparturesFragment();
@@ -60,6 +61,13 @@ namespace ReittiWidgets
                     FragmentManager.BeginTransaction().Add(departuresFragment, TAG_TASK_FRAGMENT).Commit();
                     requestTimetableUpdate();
                 }
+                // Fragment exists, but has no data - case when activity has been in background
+                else if(departuresFragment != null && departuresFragment.Stops == null)
+                {
+                    departuresFragment.TimeTableUpdated += Timetable_Updated;
+                    requestTimetableUpdate();
+                }
+                // Fragment exists with data - case when screen is rotated
                 else
                 {
                     adapter = new StopListAdapter(this, departuresFragment.Stops);
@@ -94,6 +102,11 @@ namespace ReittiWidgets
             {
                 requestTimetableUpdate();
             }
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
         }
 
         protected override void OnStop()
