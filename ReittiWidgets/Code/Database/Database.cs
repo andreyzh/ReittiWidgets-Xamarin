@@ -110,6 +110,33 @@ namespace ReittiWidgets.Code.Data
             return allStops;
         }
 
+        /// <summary>
+        /// Find stops with should be displayed in widget
+        /// </summary>
+        /// <returns>Collection of stops with lines that should be displayed in widget</returns>
+        public List<Stop> GetWidgetStops()
+        {
+            List<Stop> widgetStops = new List<Stop>();
+
+            // Query stops table which have display in widget enabled
+            var queryResultStops = db.Table<Stop>().Where(s => s.DisplayInWidget == true);
+
+            foreach(var stop in queryResultStops)
+            {
+                // Find lines for each of the stops
+                var queryResultLines = db.Table<Line>().Where(line => line.StopCode == stop.Code);
+
+                foreach (Line line in queryResultLines)
+                {
+                    stop.AddLine(line);
+                }
+
+                widgetStops.Add(stop);
+            }
+
+            return widgetStops;
+        }
+
         public Stop GetStop(string stopCode)
         {
             Stop stop;

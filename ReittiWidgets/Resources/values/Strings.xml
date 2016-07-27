@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="ApplicationName">Reitti Widgets</string>
+  <string name="WidgetName">Reitti Widgets</string>
   
   <!-- Titles -->
   <string name="app_name">Reitti Widgets</string>
