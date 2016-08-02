@@ -47,7 +47,7 @@ namespace ReittiWidgets
 
                 foreach (int appWidgetId in appWidgetIds)
                 {
-                    //updateAppWidget(context, appWidgetManager, appWidgetId);
+                    updateAppWidget(context, appWidgetManager, appWidgetId);
                 }
             }
         }

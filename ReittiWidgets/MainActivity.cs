@@ -46,7 +46,9 @@ namespace ReittiWidgets
             stopListView.SetMultiChoiceModeListener(new StopListMultChoiceHandler(this));
 
             // Get stops from DB
-            db.CreateAllTables();          
+            db.CreateAllTables();
+
+            widgetTest();
 
             // Set fragment that stores and updates stops
             departuresFragment = (DeparturesFragment)FragmentManager.FindFragmentByTag(TAG_TASK_FRAGMENT);
@@ -240,6 +242,25 @@ namespace ReittiWidgets
             // Update stops
             adapter = new StopListAdapter(this, departuresFragment.Stops);
             stopListView.Adapter = adapter;
+        }
+
+        private void widgetTest()
+        {
+            Context context = this;
+            var adapter0 = new Code.Services.StopsListWidgetService();
+
+            var adapter1 = new StopListWidgetAdapter(this, new Intent());
+
+            // Init view
+            RemoteViews view = new RemoteViews(context.PackageName, Resource.Layout.Widget);
+
+            // Initialize adapter created by StopListWidgetService
+            Intent adapter = new Intent(context, typeof(Code.Services.StopsListWidgetService));
+            adapter.PutExtra(Android.Appwidget.AppWidgetManager.ExtraAppwidgetId, 0);
+            adapter.SetAction(Android.Appwidget.AppWidgetManager.ActionAppwidgetUpdate);
+
+            // Tell view to get data from adapter
+            view.SetRemoteAdapter(Resource.Id.stopsWidgetList, adapter);
         }
     }
 
