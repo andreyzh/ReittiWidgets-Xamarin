@@ -1,17 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.Appwidget;
+using Android.Content;
+using Android.Widget;
 using ReittiWidgets.Code.Services;
-using Android.Util;
+using System;
 
 namespace ReittiWidgets
 {
@@ -28,7 +20,7 @@ namespace ReittiWidgets
         {
             base.OnReceive(context, intent);
 
-            // Is this even needed?
+            /* Is this even needed?
             if (intent.Action.Equals(ActionOnClick, StringComparison.OrdinalIgnoreCase))
             {
                 int itemPosition = intent.GetIntExtra(ItemPosition, -1);
@@ -36,7 +28,7 @@ namespace ReittiWidgets
                 {
                     Toast.MakeText(context, "Clicked on item " + itemPosition, ToastLength.Short);
                 }
-            }
+            }*/
 
             // Manual widget update
             if (intent.Action.Equals(UpdateAllWidgets, StringComparison.OrdinalIgnoreCase))
@@ -95,8 +87,6 @@ namespace ReittiWidgets
         // Update widget
         private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId)
         {
-            Log.Debug("RW", "Starting widget update");
-
             // Init view
             RemoteViews remoteViews = new RemoteViews(context.PackageName, Resource.Layout.Widget);
 
@@ -120,8 +110,6 @@ namespace ReittiWidgets
             // Instruct widget manager to update widget
             appWidgetManager.UpdateAppWidget(appWidgetId, remoteViews);
             appWidgetManager.NotifyAppWidgetViewDataChanged(appWidgetId, Resource.Id.stopsWidgetList);
-
-            Log.Debug("RW", "Finished widget update");
         }
     }
 }

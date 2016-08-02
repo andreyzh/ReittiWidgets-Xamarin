@@ -1,30 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
+using Android.Appwidget;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using ReittiWidgets.Code.Data;
-using Android.Appwidget;
-using Android.Util;
+using ReittiWidgets.Code.Fragments;
+using System;
+using System.Collections.Generic;
 
 namespace ReittiWidgets.Code.Adapters
 {
     class StopListWidgetAdapter : Java.Lang.Object, RemoteViewsService.IRemoteViewsFactory
     {
-        bool downloadCompleted = false;
         int widgetId;
 
         Context context;
         Database db;
+        DeparturesFragment departuresFragment;
         LayoutInflater layoutInflater;
         RemoteViews stopView;
-
+        
         List<Stop> stops;
 
         #region Properties
@@ -68,7 +62,6 @@ namespace ReittiWidgets.Code.Adapters
             this.context = context;
             layoutInflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
             widgetId = intent.GetIntExtra(AppWidgetManager.ExtraAppwidgetId, AppWidgetManager.InvalidAppwidgetId);
-            Log.Debug("RW", "Constructing widget adapter");
         }
 
         public long GetItemId(int position)
@@ -79,9 +72,10 @@ namespace ReittiWidgets.Code.Adapters
 
         public RemoteViews GetViewAt(int position)
         {
-            Log.Debug("RW", "Getting remote views");
-
             stopView = new RemoteViews(context.PackageName, Resource.Layout.widget_stop_list_item);
+
+            // Get timetable info
+            departuresFragment.PopulateStops();
 
             // Set stop name
             Stop stop = stops[position];
@@ -121,19 +115,27 @@ namespace ReittiWidgets.Code.Adapters
 
         public void OnCreate()
         {
-            Log.Debug("RW", "onCreate");
             db = new Database();
             stops = db.GetWidgetStops();
-            Log.Debug("RW", "Got stops: " + stops.Count.ToString());
+            departuresFragment = new DeparturesFragment();
+            departuresFragment.TimeTableUpdated += Timetable_Updated;
         }
 
         public void OnDataSetChanged()
         {
-            //TODO
+            departuresFragment.PopulateStops();
         }
 
         public void OnDestroy()
         {
+        }
+
+        private void Timetable_Updated(object sender, DepartureFragmentEventArgs e)
+        {
+            if (e.NoData)
+                return;
+
+            stops = departuresFragment.Stops;
         }
     }
 }
