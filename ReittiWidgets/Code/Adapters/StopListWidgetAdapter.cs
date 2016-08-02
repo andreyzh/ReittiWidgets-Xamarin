@@ -11,10 +11,11 @@ using Android.Views;
 using Android.Widget;
 using ReittiWidgets.Code.Data;
 using Android.Appwidget;
+using Android.Util;
 
 namespace ReittiWidgets.Code.Adapters
 {
-    class StopListWidgetAdapter : RemoteViewsService.IRemoteViewsFactory
+    class StopListWidgetAdapter : Java.Lang.Object, RemoteViewsService.IRemoteViewsFactory
     {
         bool downloadCompleted = false;
         int widgetId;
@@ -59,13 +60,6 @@ namespace ReittiWidgets.Code.Adapters
             }
         }
 
-        public IntPtr Handle
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
         #endregion
 
         // Constructor
@@ -74,16 +68,20 @@ namespace ReittiWidgets.Code.Adapters
             this.context = context;
             layoutInflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
             widgetId = intent.GetIntExtra(AppWidgetManager.ExtraAppwidgetId, AppWidgetManager.InvalidAppwidgetId);
+            Log.Debug("RW", "Constructing widget adapter");
         }
 
         public long GetItemId(int position)
         {
-            throw new NotImplementedException();
+            Stop stop = stops[position];
+            return Convert.ToInt32(stop.Code);
         }
 
         public RemoteViews GetViewAt(int position)
         {
-            stopView = new RemoteViews(context.PackageName, Resource.Layout.Widget);
+            Log.Debug("RW", "Getting remote views");
+
+            stopView = new RemoteViews(context.PackageName, Resource.Layout.widget_stop_list_item);
 
             // Set stop name
             Stop stop = stops[position];
@@ -123,20 +121,18 @@ namespace ReittiWidgets.Code.Adapters
 
         public void OnCreate()
         {
+            Log.Debug("RW", "onCreate");
             db = new Database();
             stops = db.GetWidgetStops();
+            Log.Debug("RW", "Got stops: " + stops.Count.ToString());
         }
 
         public void OnDataSetChanged()
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         public void OnDestroy()
-        {
-        }
-
-        public void Dispose()
         {
         }
     }

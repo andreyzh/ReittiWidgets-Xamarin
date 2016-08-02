@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Appwidget;
 using ReittiWidgets.Code.Services;
+using Android.Util;
 
 namespace ReittiWidgets
 {
@@ -55,7 +56,7 @@ namespace ReittiWidgets
         // Runs on widget update
         public override void OnUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
         {
-            //base.OnUpdate(context, appWidgetManager, appWidgetIds);
+            base.OnUpdate(context, appWidgetManager, appWidgetIds);
             foreach(int i in appWidgetIds)
             {
                 updateAppWidget(context, appWidgetManager, i);
@@ -92,10 +93,12 @@ namespace ReittiWidgets
         }
 
         // Update widget
-        private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId)
+        private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId)
         {
+            Log.Debug("RW", "Starting widget update");
+
             // Init view
-            RemoteViews view = new RemoteViews(context.PackageName, Resource.Layout.Widget);
+            RemoteViews remoteViews = new RemoteViews(context.PackageName, Resource.Layout.Widget);
 
             // Initialize adapter created by StopListWidgetService
             Intent adapter = new Intent(context, typeof(StopsListWidgetService));
@@ -103,7 +106,8 @@ namespace ReittiWidgets
             adapter.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
 
             // Tell view to get data from adapter
-            view.SetRemoteAdapter(Resource.Id.stopsWidgetList, adapter);
+            remoteViews.SetRemoteAdapter(Resource.Id.stopsWidgetList, adapter);
+            //remoteViews.SetEmptyView(Resource.Id.stopsWidgetList, )
 
             // Click listener
             PendingIntent pIntent;
@@ -111,11 +115,13 @@ namespace ReittiWidgets
             updateIntent.PutExtra(AppWidgetManager.ExtraAppwidgetIds, new int[] { appWidgetId });
             updateIntent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
             pIntent = PendingIntent.GetBroadcast(context, appWidgetId, updateIntent, 0);
-            view.SetOnClickPendingIntent(Resource.Id.widgetRootLayout, pIntent);
+            remoteViews.SetOnClickPendingIntent(Resource.Id.widgetRootLayout, pIntent);
 
             // Instruct widget manager to update widget
-            appWidgetManager.UpdateAppWidget(appWidgetId, view);
+            appWidgetManager.UpdateAppWidget(appWidgetId, remoteViews);
             appWidgetManager.NotifyAppWidgetViewDataChanged(appWidgetId, Resource.Id.stopsWidgetList);
+
+            Log.Debug("RW", "Finished widget update");
         }
     }
 }
