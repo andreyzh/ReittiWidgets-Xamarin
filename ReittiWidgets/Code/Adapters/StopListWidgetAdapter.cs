@@ -9,6 +9,11 @@ using System.Collections.Generic;
 
 namespace ReittiWidgets.Code.Adapters
 {
+    /// <summary>
+    /// Provides data for the widget ListView.
+    /// Stop and line basic info is taken from the database.
+    /// Timetable data downloaded.
+    /// </summary>
     class StopListWidgetAdapter : Java.Lang.Object, RemoteViewsService.IRemoteViewsFactory
     {
         int widgetId;
@@ -130,6 +135,7 @@ namespace ReittiWidgets.Code.Adapters
         {
         }
 
+        // Called after departuresFragment event is completed
         private void Timetable_Updated(object sender, DepartureFragmentEventArgs e)
         {
             if (e.NoData)

@@ -20,16 +20,6 @@ namespace ReittiWidgets
         {
             base.OnReceive(context, intent);
 
-            /* Is this even needed?
-            if (intent.Action.Equals(ActionOnClick, StringComparison.OrdinalIgnoreCase))
-            {
-                int itemPosition = intent.GetIntExtra(ItemPosition, -1);
-                if (itemPosition != -1)
-                {
-                    Toast.MakeText(context, "Clicked on item " + itemPosition, ToastLength.Short);
-                }
-            }*/
-
             // Manual widget update
             if (intent.Action.Equals(UpdateAllWidgets, StringComparison.OrdinalIgnoreCase))
             {
