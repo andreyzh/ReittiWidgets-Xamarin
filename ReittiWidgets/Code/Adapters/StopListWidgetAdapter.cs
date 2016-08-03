@@ -123,6 +123,7 @@ namespace ReittiWidgets.Code.Adapters
             db = new Database();
             stops = db.GetWidgetStops();
             departuresFragment = new DeparturesFragment();
+            departuresFragment.Stops = stops;
             departuresFragment.TimeTableUpdated += Timetable_Updated;
         }
 
