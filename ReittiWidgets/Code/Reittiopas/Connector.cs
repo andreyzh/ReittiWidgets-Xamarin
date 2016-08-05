@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace ReittiWidgets.Code.Reittiopas
@@ -9,8 +10,15 @@ namespace ReittiWidgets.Code.Reittiopas
     /// </summary>
     class Connector
     {
+        string digiTransitEndpoint = @"https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql";
+
         public string Url { get; set; }
 
+        /// <summary>
+        /// Makes GET request to Reittiopas API.
+        /// Request scope is defined in Url property of the class
+        /// </summary>
+        /// <returns>XML con</returns>
         public async Task<string> GetXmlStringAsync()
         {
             Task<string> response;
@@ -33,6 +41,28 @@ namespace ReittiWidgets.Code.Reittiopas
                 //TODO
             }
             
+            return responseContent;
+        }
+
+        /// <summary>
+        /// Makes POST request to Digitransit API.
+        /// </summary>
+        /// <param name="query">Valid GraphQL query for Digitransit API</param>
+        /// <returns>Query result in JSON format</returns>
+        public async Task<string> GetGraphQlAsync(string query)
+        {
+            string responseContent = null;
+
+            using (HttpClient client = new HttpClient())
+            {
+                StringContent content = new StringContent(query, System.Text.Encoding.UTF8);
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/graphql");
+
+                var response = client.PostAsync(digiTransitEndpoint, content);
+                var result = response.Result;
+                responseContent = await response.Result.Content.ReadAsStringAsync();
+            }
+
             return responseContent;
         }
     }

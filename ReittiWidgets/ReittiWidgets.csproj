@@ -57,6 +57,10 @@
     <Reference Include="Java.Interop" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -71,6 +75,7 @@
     <Compile Include="Code\Adapters\StopListAdapter.cs" />
     <Compile Include="Code\Adapters\StopListWidgetAdapter.cs" />
     <Compile Include="Code\Database\Database.cs" />
+    <Compile Include="Code\Data\Digitransit\Digitransit.cs" />
     <Compile Include="Code\Data\Line.cs" />
     <Compile Include="Code\Data\Stop.cs" />
     <Compile Include="Code\Fragments\DeparturesFragment.cs" />
