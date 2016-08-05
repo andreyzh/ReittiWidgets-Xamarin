@@ -53,14 +53,21 @@ namespace ReittiWidgets.Code.Reittiopas
         {
             string responseContent = null;
 
-            using (HttpClient client = new HttpClient())
-            {
-                StringContent content = new StringContent(query, System.Text.Encoding.UTF8);
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/graphql");
+            try
+            { 
+                using (HttpClient client = new HttpClient())
+                {
+                    StringContent content = new StringContent(query, System.Text.Encoding.UTF8);
+                    content.Headers.ContentType = new MediaTypeHeaderValue("application/graphql");
 
-                var response = client.PostAsync(digiTransitEndpoint, content);
-                var result = response.Result;
-                responseContent = await response.Result.Content.ReadAsStringAsync();
+                    var response = client.PostAsync(digiTransitEndpoint, content);
+                    var result = response.Result;
+                    responseContent = await response.Result.Content.ReadAsStringAsync();
+                }
+            }
+            catch (WebException ex)
+            {
+                //TODO
             }
 
             return responseContent;

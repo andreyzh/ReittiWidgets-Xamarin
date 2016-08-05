@@ -50,8 +50,9 @@ namespace ReittiWidgets.Code.Activities
             AutoCompleteAdapter adapter = new AutoCompleteAdapter(this, Resource.Layout.addline_list_autocomplete_item, allStops);
             inputStopName.Adapter = adapter;
 
-            // Set listener for autocomplete
+            // Set listeners for autocomplete: item clicked and text changed
             inputStopName.ItemClick += stopInputItemClick;
+            inputStopName.TextChanged += InputStopName_TextChanged;
 
             buttonAddLine = (Button)FindViewById(Resource.Id.buttonAddline);
             buttonAddLine.Click += addLine;
@@ -163,6 +164,12 @@ namespace ReittiWidgets.Code.Activities
 
             // Search for lines
             getLines();
+        }
+
+        // Click listener for changing text in autocomplete - populates list
+        private void InputStopName_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

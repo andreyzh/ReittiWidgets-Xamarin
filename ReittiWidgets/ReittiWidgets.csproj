@@ -82,6 +82,7 @@
     <Compile Include="Code\JavaObjectExtensions.cs" />
     <Compile Include="Code\Reittiopas\Connector.cs" />
     <Compile Include="Code\Reittiopas\Parser.cs" />
+    <Compile Include="Code\Reittiopas\QueryBuilder.cs" />
     <Compile Include="Code\Reittiopas\RequestBuilder.cs" />
     <Compile Include="Code\Services\StopsListWidgetService.cs" />
     <Compile Include="Code\Utils.cs" />

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using ReittiWidgets.Code.Data;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -42,6 +43,23 @@ namespace ReittiWidgets.Code.Reittiopas
             }
 
             return stops; 
+        }
+
+        public List<Stop> ParseStopsFromJSON(string input)
+        {
+            List<Stop> stops = new List<Stop>();
+            Data.Digitransit.Digitransit elements = JsonConvert.DeserializeObject<Data.Digitransit.Digitransit>(input);
+
+            foreach (var element in elements.Data.stops)
+            {
+                Stop stop = new Stop();
+                stop.Code = element.Code;
+                stop.Name = element.Name;
+
+                stops.Add(stop);
+            }
+
+            return stops;
         }
 
         /// <summary>
