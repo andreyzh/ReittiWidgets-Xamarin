@@ -25,6 +25,7 @@
   <string name="action_desciption_stops_selected">stops selected</string>
   <string name="action_desciption_select_lines">Select lines</string>
   <string name="action_desciption_lines_selected">lines selected</string>
+  <string name="searchview_stops_hint">Search stops</string>
   
   <!-- Context menu -->
   <string name="stops_context_edit">Edit</string>

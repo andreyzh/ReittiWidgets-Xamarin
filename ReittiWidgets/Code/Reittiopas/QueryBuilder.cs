@@ -17,7 +17,7 @@ namespace ReittiWidgets.Code.Reittiopas
     /// </summary>
     class QueryBuilder
     {
-        public enum QueryType { Departures, Stops };
+        public enum QueryType { Departures, StopsByName, StopById };
 
         public static string MakeQuery(string searchTerm, QueryType queryType)
         {
@@ -28,8 +28,11 @@ namespace ReittiWidgets.Code.Reittiopas
                 case QueryType.Departures:
                     query = $@"{{stop(id: ""HSL:{searchTerm}"") {{name code stoptimesForPatterns(startTime:""0000"", timeRange:0,numberOfDepartures:3) {{ pattern {{ name code }} stoptimes {{ scheduledDeparture departureDelay realtimeState realtime }} }} }} }}"; ;
                     break;
-                case QueryType.Stops:
+                case QueryType.StopsByName:
                     query = $@"{{ stops(name: ""{searchTerm}"") {{ name code patterns {{ name code directionId }} }} }}";
+                    break;
+                case QueryType.StopById:
+                    query = $@"{{ stops(ids: ""{searchTerm}"") {{ name code patterns {{ name code directionId }} }} }}";
                     break;
                 default:
                     break;

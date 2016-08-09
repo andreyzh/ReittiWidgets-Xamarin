@@ -12,7 +12,15 @@ namespace ReittiWidgets.Code.Data
         public bool DisplayInWidget { get; set; }
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        /// <summary>
+        /// Reittiopas stop code
+        /// </summary>
         public string Code { get; set; }
+        /// <summary>
+        /// GTFS ID of the stop used in Digitransit API
+        /// Format is Agency:ID
+        /// </summary>
+        public string GtfsId { get; set; }
         public string Name { get; set; }
         [Ignore]
         public List<Line> Lines
