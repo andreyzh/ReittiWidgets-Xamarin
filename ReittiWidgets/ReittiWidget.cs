@@ -48,8 +48,6 @@ namespace ReittiWidgets
         // Runs on adding first instance of widget
         public override void OnEnabled(Context context)
         {
-            //base.OnEnabled(context);
-
             // Make intent with action to update all widgets
             Intent intent = new Intent(context, typeof(ReittiWidget));
             intent.SetAction(UpdateAllWidgets);
@@ -57,14 +55,12 @@ namespace ReittiWidgets
 
             // Schedule intent every 3 minutes
             AlarmManager alarmManager = (AlarmManager)context.GetSystemService(Context.AlarmService);
-            alarmManager.SetRepeating(AlarmType.Rtc, DateTime.Now.Millisecond, 18000000, pIntent);
+            alarmManager.SetRepeating(AlarmType.Rtc, DateTime.Now.Millisecond, 180000, pIntent); //180000
         }
 
         // Runs when last widget is deleted
         public override void OnDisabled(Context context)
         {
-            //base.OnDisabled(context);
-
             // Cancel autoupdates
             Intent intent = new Intent(context, typeof(ReittiWidget));
             intent.SetAction(UpdateAllWidgets);
@@ -87,15 +83,14 @@ namespace ReittiWidgets
 
             // Tell view to get data from adapter
             remoteViews.SetRemoteAdapter(Resource.Id.stopsWidgetList, adapter);
-            //remoteViews.SetEmptyView(Resource.Id.stopsWidgetList, )
 
-            // Click listener
+            /* Click listener
             PendingIntent pIntent;
             Intent updateIntent = new Intent(context, typeof(ReittiWidget));
             updateIntent.PutExtra(AppWidgetManager.ExtraAppwidgetIds, new int[] { appWidgetId });
             updateIntent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
             pIntent = PendingIntent.GetBroadcast(context, appWidgetId, updateIntent, 0);
-            remoteViews.SetOnClickPendingIntent(Resource.Id.widgetRootLayout, pIntent);
+            remoteViews.SetOnClickPendingIntent(Resource.Id.widgetRootLayout, pIntent);*/
 
             // Instruct widget manager to update widget
             appWidgetManager.UpdateAppWidget(appWidgetId, remoteViews);

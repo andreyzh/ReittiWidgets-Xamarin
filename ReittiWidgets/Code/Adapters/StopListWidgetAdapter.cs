@@ -6,6 +6,7 @@ using ReittiWidgets.Code.Data;
 using ReittiWidgets.Code.Fragments;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ReittiWidgets.Code.Adapters
 {
@@ -16,6 +17,7 @@ namespace ReittiWidgets.Code.Adapters
     /// </summary>
     class StopListWidgetAdapter : Java.Lang.Object, RemoteViewsService.IRemoteViewsFactory
     {
+        bool downloadCompleted = false;
         int widgetId;
 
         Context context;
@@ -77,10 +79,18 @@ namespace ReittiWidgets.Code.Adapters
 
         public RemoteViews GetViewAt(int position)
         {
+            int attempts = 0;
+
             stopView = new RemoteViews(context.PackageName, Resource.Layout.widget_stop_list_item);
 
             // Get timetable info
             departuresFragment.PopulateStops();
+
+            // Wait for download to complete (yes, not elegant)
+            while(!downloadCompleted && attempts < 10)
+            {
+                Thread.Sleep(1000);
+            }
 
             // Set stop name
             Stop stop = stops[position];
@@ -143,6 +153,7 @@ namespace ReittiWidgets.Code.Adapters
                 return;
 
             stops = departuresFragment.Stops;
+            downloadCompleted = true;
         }
     }
 }
