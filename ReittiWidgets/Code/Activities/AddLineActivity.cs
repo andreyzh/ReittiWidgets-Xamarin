@@ -169,7 +169,7 @@ namespace ReittiWidgets.Code.Activities
         // Click listener for changing text in autocomplete - populates list
         private void InputStopName_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
-            if(e.AfterCount > 3)
+            if(e.Start > 3)
             {
                 Toast.MakeText(this, "Go West!", ToastLength.Short).Show();
             }

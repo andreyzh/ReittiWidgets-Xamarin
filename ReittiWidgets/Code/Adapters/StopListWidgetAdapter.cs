@@ -90,6 +90,7 @@ namespace ReittiWidgets.Code.Adapters
             while(!downloadCompleted && attempts < 10)
             {
                 Thread.Sleep(1000);
+                attempts++;
             }
 
             // Set stop name

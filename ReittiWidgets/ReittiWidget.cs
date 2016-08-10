@@ -73,6 +73,9 @@ namespace ReittiWidgets
         // Update widget
         private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId)
         {
+             
+            appWidgetManager.NotifyAppWidgetViewDataChanged(appWidgetId, Resource.Id.stopsWidgetList);
+
             // Init view
             RemoteViews remoteViews = new RemoteViews(context.PackageName, Resource.Layout.Widget);
 
@@ -84,13 +87,13 @@ namespace ReittiWidgets
             // Tell view to get data from adapter
             remoteViews.SetRemoteAdapter(Resource.Id.stopsWidgetList, adapter);
 
-            /* Click listener
+            // Click listener
             PendingIntent pIntent;
             Intent updateIntent = new Intent(context, typeof(ReittiWidget));
             updateIntent.PutExtra(AppWidgetManager.ExtraAppwidgetIds, new int[] { appWidgetId });
             updateIntent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
             pIntent = PendingIntent.GetBroadcast(context, appWidgetId, updateIntent, 0);
-            remoteViews.SetOnClickPendingIntent(Resource.Id.widgetRootLayout, pIntent);*/
+            remoteViews.SetOnClickPendingIntent(Resource.Id.widgetRootLayout, pIntent);
 
             // Instruct widget manager to update widget
             appWidgetManager.UpdateAppWidget(appWidgetId, remoteViews);
