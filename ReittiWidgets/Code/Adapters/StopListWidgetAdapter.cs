@@ -4,9 +4,11 @@ using Android.Views;
 using Android.Widget;
 using ReittiWidgets.Code.Data;
 using ReittiWidgets.Code.Fragments;
+using ReittiWidgets.Code.Reittiopas;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ReittiWidgets.Code.Adapters
 {
@@ -79,23 +81,12 @@ namespace ReittiWidgets.Code.Adapters
 
         public RemoteViews GetViewAt(int position)
         {
-            int attempts = 0;
-
             stopView = new RemoteViews(context.PackageName, Resource.Layout.widget_stop_list_item);
-
-            // Get timetable info
-            departuresFragment.PopulateStops();
-
-            // Wait for download to complete (yes, not elegant)
-            while(!downloadCompleted && attempts < 10)
-            {
-                Thread.Sleep(1000);
-                attempts++;
-            }
 
             // Set stop name
             Stop stop = stops[position];
             stopView.SetTextViewText(Resource.Id.stopNameTextViewWidget, stop.Name);
+            
             // Reset line views
             stopView.RemoveAllViews(Resource.Id.lineItemsHolderWidget);
 
@@ -133,28 +124,34 @@ namespace ReittiWidgets.Code.Adapters
         {
             db = new Database();
             stops = db.GetWidgetStops();
-            departuresFragment = new DeparturesFragment();
-            departuresFragment.Stops = stops;
-            departuresFragment.TimeTableUpdated += Timetable_Updated;
+            PopulateDepartures();
         }
 
         public void OnDataSetChanged()
         {
-            departuresFragment.PopulateStops();
+            PopulateDepartures();
         }
 
         public void OnDestroy()
         {
         }
 
-        // Called after departuresFragment event is completed
-        private void Timetable_Updated(object sender, DepartureFragmentEventArgs e)
+        private void PopulateDepartures()
         {
-            if (e.NoData)
-                return;
+            //if (stops == null)
+            //    stops = db.GetStops();
 
-            stops = departuresFragment.Stops;
-            downloadCompleted = true;
+            List<string> resultXml = new List<string>();
+
+            foreach (Stop stop in stops)
+            {
+                Connector connector = new Connector();
+                connector.Url = RequestBuilder.getStopRequest(stop.Code);
+                resultXml.Add(connector.GetXmlStringSync());
+            }
+
+            Parser parser = new Parser();
+            stops = parser.ParseDepartureData(resultXml, stops);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -41,6 +42,32 @@ namespace ReittiWidgets.Code.Reittiopas
                 //TODO
             }
             
+            return responseContent;
+        }
+
+        public string GetXmlStringSync()
+        {
+            string responseContent = null;
+
+            if (Url == null)
+                return null;
+
+            try
+            {
+                WebRequest request = WebRequest.Create(Url);
+                var response = request.GetResponse();
+                var stream = response.GetResponseStream();
+
+                StreamReader streamReader = new StreamReader(stream);
+                responseContent = streamReader.ReadToEnd();
+                response.Close();
+                streamReader.Close();
+            }
+            catch (WebException ex)
+            {
+                //TODO
+            }
+
             return responseContent;
         }
 
