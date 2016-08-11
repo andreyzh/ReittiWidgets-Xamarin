@@ -20,7 +20,7 @@ namespace ReittiWidgets
         {
             base.OnReceive(context, intent);
 
-            // This code is for widget update via broadcase reciever e.g. when clicking list items
+            // This code is for widget update via broadcase reciever when clicking on widget
             if (intent.Action.Equals(ActionOnClick, StringComparison.OrdinalIgnoreCase))
             {
                 int itemPosition = intent.GetIntExtra(ReittiWidget.ItemPosition, -1);
@@ -28,7 +28,6 @@ namespace ReittiWidgets
                 {
                     //Toast.MakeText(context, "Clicked on item " + itemPosition, ToastLength.Short).Show();
 
-                    // We caught broadcast event, update widgets
                     ComponentName thisAppWidget = new ComponentName(context.PackageName, Class.Name);
                     AppWidgetManager appWidgetManager = AppWidgetManager.GetInstance(context);
                     int[] appWidgetIds = appWidgetManager.GetAppWidgetIds(thisAppWidget);
@@ -38,7 +37,18 @@ namespace ReittiWidgets
                         updateAppWidget(context, appWidgetManager, appWidgetId);
                     }
                 }
-                
+            }
+            // This code is for widget update via broadcase reciever via alarms
+            if (intent.Action.Equals(UpdateAllWidgets, StringComparison.OrdinalIgnoreCase))
+            {
+                ComponentName thisAppWidget = new ComponentName(context.PackageName, Class.Name);
+                AppWidgetManager appWidgetManager = AppWidgetManager.GetInstance(context);
+                int[] appWidgetIds = appWidgetManager.GetAppWidgetIds(thisAppWidget);
+
+                foreach (int appWidgetId in appWidgetIds)
+                {
+                    updateAppWidget(context, appWidgetManager, appWidgetId);
+                }
             }
         }
 
