@@ -171,7 +171,7 @@ namespace ReittiWidgets.Code.Activities
         {
             if(e.Start > 3)
             {
-                Toast.MakeText(this, "Go West!", ToastLength.Short).Show();
+                //Toast.MakeText(this, "Go West!", ToastLength.Short).Show();
             }
         }
     }

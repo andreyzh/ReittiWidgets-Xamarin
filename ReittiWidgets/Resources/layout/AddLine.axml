@@ -14,7 +14,8 @@
         android:inputType="text"
         android:queryHint="@string/stop_code"
         android:focusable="true"
-        android:iconifiedByDefault="false" />
+        android:iconifiedByDefault="false"
+        android:visibility="gone" />
     <AutoCompleteTextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
