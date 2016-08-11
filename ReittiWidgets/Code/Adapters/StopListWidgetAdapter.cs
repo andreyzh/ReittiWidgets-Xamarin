@@ -83,6 +83,12 @@ namespace ReittiWidgets.Code.Adapters
         {
             stopView = new RemoteViews(context.PackageName, Resource.Layout.widget_stop_list_item);
 
+            // Click handlers
+            Intent clickIntent = new Intent();
+            clickIntent.PutExtra(ReittiWidget.ItemPosition, position);
+            stopView.SetOnClickFillInIntent(Resource.Id.lineItemsHolderWidget, clickIntent);
+            stopView.SetOnClickFillInIntent(Resource.Id.stopNameTextViewWidget, clickIntent);
+
             // Set stop name
             Stop stop = stops[position];
             stopView.SetTextViewText(Resource.Id.stopNameTextViewWidget, stop.Name);
@@ -96,7 +102,7 @@ namespace ReittiWidgets.Code.Adapters
                 RemoteViews lineView = new RemoteViews(context.PackageName, Resource.Layout.widget_line_list_item);
                 lineView.SetTextViewText(Resource.Id.labelLineNameWidget, line.Number);
 
-                if(line.HasDepartures)
+                if (line.HasDepartures)
                 {
                     if (line.NextDeparture != null)
                         lineView.SetTextViewText(Resource.Id.labelNextDepartureWidget, line.NextDeparture);
@@ -123,12 +129,13 @@ namespace ReittiWidgets.Code.Adapters
         public void OnCreate()
         {
             db = new Database();
-            stops = db.GetWidgetStops();
-            PopulateDepartures();
+            stops = new List<Stop>();
         }
 
         public void OnDataSetChanged()
         {
+            stops.Clear();
+            stops = db.GetWidgetStops();
             PopulateDepartures();
         }
 
