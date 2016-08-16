@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ReittiWidgets.Code.Data;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -107,7 +108,7 @@ namespace ReittiWidgets.Code.Reittiopas
         /// </summary>
         /// <param name="xmlData">Reittiopas XML for a stop request</param>
         /// <param name="stops">List of stops with lines to populate departures</param>
-        /// <returns></returns>
+        /// <returns>Stop with lines with list of upcoming departures</returns>
         public List<Stop> ParseDepartureData(List<string> xmlData, List<Stop> stops)
         {
             foreach(string xml in xmlData)
@@ -144,6 +145,47 @@ namespace ReittiWidgets.Code.Reittiopas
                 }
             }
 
+            return stops;
+        }
+
+        /// <summary>
+        /// Extracts all departures for a given stop and its lines
+        /// </summary>
+        /// <param name="jsonData">Digitransit GraphQL query result in JSON format</param>
+        /// <param name="stops">List of stops with lines to populate departures</param>
+        /// <returns>Stop with lines with list of upcoming departures</returns>
+        public List<Stop> ParseDepartureDataJson(List<string> jsonData, List<Stop> stops)
+        {
+            foreach(var json in jsonData)
+            {
+                // Deserialize using JSON.net
+                Data.Digitransit.Digitransit temp = JsonConvert.DeserializeObject<Data.Digitransit.Digitransit>(json);
+
+                // Find stop by matching GTFS Id
+                Stop stop = stops.Find(s => s.GtfsId == temp.Data.Stop.GtfsId);
+
+                // Scan departures and find for matching lines
+                foreach(var departure in temp.Data.Stop.StoptimesForPatterns)
+                {
+                    Line line = stop.Lines.Find(l => departure.Pattern.Code.Contains(l.Code));
+
+                    if(line != null)
+                    { 
+                        List<DateTime> departures = new List<DateTime>();
+
+                        // Set departure time
+                        foreach(var stopTime in departure.Stoptimes)
+                        {
+                            DateTimeOffset offset = DateTimeOffset.FromUnixTimeSeconds(stopTime.ScheduledDeparture);
+                            DateTime departureTime = DateTime.Today.AddHours(offset.Hour).AddMinutes(offset.Minute);
+                            departures.Add(departureTime);
+                        }
+
+                        line.SetDepartures(departures);
+                    }
+                }
+            }
+            
             return stops;
         }
     }

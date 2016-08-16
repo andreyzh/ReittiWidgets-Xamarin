@@ -11,6 +11,8 @@ namespace ReittiWidgets.Code.Data.Digitransit
     {
         public string Name { get; set; }
         public string Code { get; set; }
+        public int DirectionId { get; set; }
+        public string Headsign { get; set; }
     }
 
     public class Stoptime
@@ -31,6 +33,7 @@ namespace ReittiWidgets.Code.Data.Digitransit
     {
         public string Name { get; set; }
         public string Code { get; set; }
+        public string GtfsId { get; set; }
         public List<StoptimesForPattern> StoptimesForPatterns { get; set; }
         public List<object> Patterns { get; set; }
     }

@@ -58,6 +58,7 @@ namespace ReittiWidgets.Code.Data
             }
         }
         public string Number { get; set; }
+        public string Headsign { get; set; }
         public string Code { get; set; }
         [Indexed]
         public string StopCode { get; set; }

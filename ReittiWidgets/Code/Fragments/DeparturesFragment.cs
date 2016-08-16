@@ -1,17 +1,10 @@
+using Android.App;
+using Android.OS;
+using ReittiWidgets.Code.Data;
+using ReittiWidgets.Code.Reittiopas;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using ReittiWidgets.Code.Data;
 using System.Threading.Tasks;
-using ReittiWidgets.Code.Reittiopas;
 
 namespace ReittiWidgets.Code.Fragments
 {
@@ -60,17 +53,26 @@ namespace ReittiWidgets.Code.Fragments
 
             // One task (thread) per each stop
             var tasks = new List<Task<string>>();
+            // Digitransit test
+            var tasksDt = new List<Task<string>>();
 
             // Download XML files for each stop
             foreach (Stop stop in stops)
             {
+                // Reittiopas
                 Connector connector = new Connector();
                 connector.Url = RequestBuilder.getStopRequest(stop.Code);
                 tasks.Add(connector.GetXmlStringAsync());
+
+                // Digitransit
+                string query = QueryBuilder.MakeQuery(stop.GtfsId, QueryBuilder.QueryType.Departures);
+                tasksDt.Add(connector.GetGraphQlAsync(query));
             }
 
             // Contains set of XML files from RO
             List<string> resultXml = new List<string>(await Task.WhenAll(tasks));
+            // Contains set of XML files from DT
+            List<string> resultJson = new List<string>(await Task.WhenAll(tasksDt));
 
             DepartureFragmentEventArgs args = new DepartureFragmentEventArgs();
             if (resultXml.Count == 0)
@@ -79,7 +81,8 @@ namespace ReittiWidgets.Code.Fragments
                 args.NoData = false;
 
             Parser parser = new Parser();
-            stops = parser.ParseDepartureData(resultXml, stops);
+            //stops = parser.ParseDepartureData(resultXml, stops);
+            stops = parser.ParseDepartureDataJson(resultJson, stops);
 
             // Raise event that we're done here
             onTimeTableUpdated(args);
