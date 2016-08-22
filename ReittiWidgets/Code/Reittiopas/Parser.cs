@@ -164,9 +164,29 @@ namespace ReittiWidgets.Code.Reittiopas
                 // Find stop by matching GTFS Id
                 Stop stop = stops.Find(s => s.GtfsId == temp.Data.Stop.GtfsId);
 
-                // Scan departures and find for matching lines
+                // Alternative option - loop through lines
+                foreach(var line in stop.Lines)
+                {
+                    // Find corresponding pattern
+                    var departure = temp.Data.Stop.StoptimesForPatterns.Find(dep => dep.Pattern.Code.Contains(line.Code));
+
+                    List<DateTime> departures = new List<DateTime>();
+
+                    // Set departure time
+                    foreach (var stopTime in departure.Stoptimes)
+                    {
+                        DateTimeOffset offset = DateTimeOffset.FromUnixTimeSeconds(stopTime.ScheduledDeparture);
+                        DateTime departureTime = DateTime.Today.AddHours(offset.Hour).AddMinutes(offset.Minute);
+                        departures.Add(departureTime);
+                    }
+
+                    line.SetDepartures(departures);
+                }
+
+                /* Scan departures and find for matching lines
                 foreach(var departure in temp.Data.Stop.StoptimesForPatterns)
                 {
+                    // For lines e.g. 6T there's a problem. It returns internal line 6 instead of 6T
                     Line line = stop.Lines.Find(l => departure.Pattern.Code.Contains(l.Code));
 
                     if(line != null)
@@ -183,7 +203,8 @@ namespace ReittiWidgets.Code.Reittiopas
 
                         line.SetDepartures(departures);
                     }
-                }
+                }*/
+                
             }
             
             return stops;
