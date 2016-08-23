@@ -44,8 +44,13 @@ namespace ReittiWidgets.Code.Data
         {
             get
             {
-                DateTime? result = getNextDeparture();
-                return result.HasValue ? result.Value.ToString("HH:mm") : " - ";
+                if (HasDepartures)
+                {
+                    DateTime? result = getNextDeparture();
+                    return result.HasValue ? result.Value.ToString("HH:mm") : " - ";
+                }
+                else
+                    return " - ";
             }
         }
         [Ignore]
@@ -53,8 +58,13 @@ namespace ReittiWidgets.Code.Data
         {
             get
             {
-                DateTime? result = getFollowingDeparture();
-                return result.HasValue ? result.Value.ToString("HH:mm") : " - ";
+                if (HasDepartures)
+                {
+                    DateTime? result = getFollowingDeparture();
+                    return result.HasValue ? result.Value.ToString("HH:mm") : " - ";
+                }
+                else
+                    return " - ";
             }
         }
         public string Number { get; set; }
@@ -75,7 +85,6 @@ namespace ReittiWidgets.Code.Data
         {
             DateTime adjusted = DateTime.Now.AddMinutes(delay);
 
-            //TODO: Refactor?
             foreach(DateTime departureTime in departures)
             {
                 if(adjusted <= departureTime)
