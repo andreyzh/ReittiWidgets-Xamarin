@@ -52,17 +52,18 @@ namespace ReittiWidgets.Code.Fragments
             }
 
             // One task (thread) per each stop
-            var tasks = new List<Task<string>>();
+            //var tasks = new List<Task<string>>();
             // Digitransit test
             var tasksDt = new List<Task<string>>();
 
             // Download XML files for each stop
             foreach (Stop stop in stops)
             {
-                // Reittiopas
                 Connector connector = new Connector();
-                connector.Url = RequestBuilder.getStopRequest(stop.Code);
-                tasks.Add(connector.GetXmlStringAsync());
+
+                // Reittiopas
+                //connector.Url = RequestBuilder.getStopRequest(stop.Code);
+                //tasks.Add(connector.GetXmlStringAsync());
 
                 // Digitransit
                 string query = QueryBuilder.MakeQuery(stop.GtfsId, QueryBuilder.QueryType.Departures);
@@ -70,12 +71,12 @@ namespace ReittiWidgets.Code.Fragments
             }
 
             // Contains set of XML files from RO
-            List<string> resultXml = new List<string>(await Task.WhenAll(tasks));
+            //List<string> resultXml = new List<string>(await Task.WhenAll(tasks));
             // Contains set of XML files from DT
             List<string> resultJson = new List<string>(await Task.WhenAll(tasksDt));
 
             DepartureFragmentEventArgs args = new DepartureFragmentEventArgs();
-            if (resultXml.Count == 0)
+            if (resultJson.Count == 0)
                 args.NoData = true;
             else
                 args.NoData = false;
